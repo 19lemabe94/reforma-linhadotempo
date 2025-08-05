@@ -8,11 +8,67 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700&family=Roboto+Slab:ital,wght@1,300&display=swap');
 
         body {
             font-family: 'Inter', sans-serif;
             background-color: #edecea;
+            padding-top: 60px; /* Adicionado para evitar que o conteúdo fique escondido atrás do menu */
+        }
+
+        /* Estilos do novo menu de navegação */
+        .main-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 10; /* Garante que o menu fique na frente de todo o conteúdo */
+            display: flex;
+            justify-content: center;
+            padding: 10px 20px;
+        }
+
+        .main-nav ul {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 20px;
+        }
+
+        .main-nav a {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            color: #202020;
+            text-decoration: none;
+            padding: 5px 10px;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: #a18c65;
+        }
+
+        .timeline-title {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: #202020;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            font-family: 'Roboto Slab', serif;
+            font-style: italic;
+            font-weight: 300;
+            font-size: 1.2rem;
+            color: #616161;
+            text-align: center;
+            margin-bottom: 3rem;
         }
 
         .timeline-vertical {
@@ -105,7 +161,6 @@
             border-color: transparent #d7d2cb transparent transparent;
         }
         
-        /* Cor da seta no hover */
         .timeline-container:hover.left::before {
             border-color: transparent transparent transparent #a18c65;
         }
@@ -124,7 +179,7 @@
             background-color: #d7d2cb;
             cursor: pointer;
             z-index: 2;
-            min-width: 20rem; /* Para garantir largura mínima */
+            min-width: 20rem;
             color: #202020;
         }
 
@@ -133,7 +188,6 @@
             color: white;
         }
         
-        /* Cor do texto no hover */
         .card-timeline:hover h3,
         .card-timeline:hover p {
             color: white;
@@ -221,14 +275,24 @@
         }
     </style>
 </head>
-<body class="bg-gray-100 py-12">
-
+<body>
+    <nav class="main-nav">
+        <ul>
+            <li><a href="#2024">2024</a></li>
+            <li><a href="#2025">2025</a></li>
+            <li><a href="#2026">2026</a></li>
+            <li><a href="#2027">2027</a></li>
+            <li><a href="#2029-2032">2029-2032</a></li>
+            <li><a href="#2033">2033</a></li>
+        </ul>
+    </nav>
     <div class="container mx-auto px-4 max-w-7xl">
-        <h1 class="text-4xl font-extrabold text-center text-gray-800 mb-12">Mapa da Reforma Tributária</h1>
+        <h1 class="timeline-title">Reforma Tributária</h1>
+        <p class="timeline-description">Análise do cenário atual e futuro.</p>
 
         <div class="timeline-vertical">
 
-            <div class="timeline-container left">
+            <div class="timeline-container left" id="2024">
                 <div class="year-label">2024</div>
                 <div class="card-timeline group">
                     <h3 class="text-xl font-bold mb-2">Aprovação</h3>
@@ -240,7 +304,7 @@
                 </div>
             </div>
 
-            <div class="timeline-container right">
+            <div class="timeline-container right" id="2025">
                 <div class="year-label">2025</div>
                 <div class="card-timeline group">
                     <h3 class="text-xl font-bold mb-2">Lei Complementar</h3>
@@ -252,7 +316,7 @@
                 </div>
             </div>
 
-            <div class="timeline-container left">
+            <div class="timeline-container left" id="2026">
                 <div class="year-label">2026</div>
                 <div class="card-timeline group">
                     <h3 class="text-xl font-bold mb-2">Ano de Teste</h3>
@@ -264,7 +328,7 @@
                 </div>
             </div>
 
-            <div class="timeline-container right">
+            <div class="timeline-container right" id="2027">
                 <div class="year-label">2027</div>
                 <div class="card-timeline group">
                     <h3 class="text-xl font-bold mb-2">Início da CBS</h3>
@@ -276,7 +340,7 @@
                 </div>
             </div>
 
-            <div class="timeline-container left">
+            <div class="timeline-container left" id="2029-2032">
                 <div class="year-label">2029-2032</div>
                 <div class="card-timeline group">
                     <h3 class="text-xl font-bold mb-2">Substituição Gradual</h3>
@@ -288,7 +352,7 @@
                 </div>
             </div>
 
-            <div class="timeline-container right">
+            <div class="timeline-container right" id="2033">
                 <div class="year-label">2033</div>
                 <div class="card-timeline group">
                     <h3 class="text-xl font-bold mb-2">Implementação Total</h3>
