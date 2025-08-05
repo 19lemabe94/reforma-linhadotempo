@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <title>Linha do Tempo da Reforma Tributária</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #edecea;
+        }
+
+        .timeline-vertical {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .timeline-vertical::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: #202020;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+            z-index: 0;
+        }
+
+        .timeline-container {
+            padding: 10px 40px;
+            position: relative;
+            background-color: inherit;
+            width: 50%;
+            z-index: 1;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .timeline-icon-circle {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #877551;
+            top: 25px;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .timeline-icon-circle i {
+            color: #ffffff;
+            font-size: 1.25rem;
+        }
+
+        .left .timeline-icon-circle {
+            right: -20px;
+        }
+
+        .right .timeline-icon-circle {
+            left: -20px;
+        }
+
+        .card-timeline:hover ~ .timeline-icon-circle {
+            transform: scale(1.3);
+            background-color: #202020;
+        }
+
+        .left {
+            left: 0;
+        }
+
+        .right {
+            left: 50%;
+        }
+
+        .timeline-container::before {
+            content: " ";
+            height: 0;
+            position: absolute;
+            top: 22px;
+            width: 0;
+            z-index: 1;
+            border: medium solid #d7d2cb;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .left::before {
+            right: 30px;
+            border-width: 10px 0 10px 10px;
+            border-color: transparent transparent transparent #d7d2cb;
+        }
+        
+        .right::before {
+            left: 30px;
+            border-width: 10px 10px 10px 0;
+            border-color: transparent #d7d2cb transparent transparent;
+        }
+        
+        /* Cor da seta no hover */
+        .timeline-container:hover.left::before {
+            border-color: transparent transparent transparent #a18c65;
+        }
+
+        .timeline-container:hover.right::before {
+            border-color: transparent #a18c65 transparent transparent;
+        }
+
+        .card-timeline {
+            position: relative;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            overflow: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            background-color: #d7d2cb;
+            cursor: pointer;
+            z-index: 2;
+            min-width: 20rem; /* Para garantir largura mínima */
+            color: #202020;
+        }
+
+        .card-timeline:hover {
+            background-color: #a18c65;
+            color: white;
+        }
+        
+        /* Cor do texto no hover */
+        .card-timeline:hover h3,
+        .card-timeline:hover p {
+            color: white;
+        }
+
+        .card-timeline h3 {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .diagonal-stripe {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 6rem;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            background-image: repeating-linear-gradient(45deg, white 0, white 10px, transparent 10px, transparent 20px);
+        }
+
+        .card-timeline:hover .diagonal-stripe {
+            opacity: 0.2;
+        }
+
+        .year-label {
+            position: absolute;
+            top: 0;
+            font-weight: 700;
+            color: #202020;
+            font-size: 1.25rem;
+            width: 80px;
+            text-align: center;
+        }
+
+        .left .year-label {
+            right: -130px;
+            top: 25px;
+        }
+
+        .right .year-label {
+            left: -130px;
+            top: 25px;
+        }
+
+        @media screen and (max-width: 768px) {
+            .timeline-vertical::after {
+                left: 31px;
+            }
+
+            .timeline-container {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 25px;
+            }
+
+            .timeline-container::before {
+                left: 60px;
+                border-width: 10px 10px 10px 0;
+                border-color: transparent #d7d2cb transparent transparent;
+            }
+            
+            .timeline-container:hover.left::before {
+                border-color: transparent #a18c65 transparent transparent;
+            }
+
+            .timeline-icon-circle {
+                left: 20px !important;
+                top: 25px;
+            }
+
+            .right {
+                left: 0%;
+            }
+
+            .year-label {
+                left: -60px;
+                top: 25px;
+                font-size: 1rem;
+                transform: rotate(0deg);
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body class="bg-gray-100 py-12">
+
+    <div class="container mx-auto px-4 max-w-7xl">
+        <h1 class="text-4xl font-extrabold text-center text-gray-800 mb-12">Mapa da Reforma Tributária</h1>
+
+        <div class="timeline-vertical">
+
+            <div class="timeline-container left">
+                <div class="year-label">2024</div>
+                <div class="card-timeline group">
+                    <h3 class="text-xl font-bold mb-2">Aprovação</h3>
+                    <p>Aprovação do Projeto de Lei Complementar (PLP) 68/2024.</p>
+                    <div class="diagonal-stripe"></div>
+                </div>
+                <div class="timeline-icon-circle">
+                    <i class="fas fa-thumbs-up"></i>
+                </div>
+            </div>
+
+            <div class="timeline-container right">
+                <div class="year-label">2025</div>
+                <div class="card-timeline group">
+                    <h3 class="text-xl font-bold mb-2">Lei Complementar</h3>
+                    <p>Publicação da Lei Complementar nº 214/2025, regulamentando a CBS e o IBS.</p>
+                    <div class="diagonal-stripe"></div>
+                </div>
+                <div class="timeline-icon-circle">
+                    <i class="fas fa-scroll"></i>
+                </div>
+            </div>
+
+            <div class="timeline-container left">
+                <div class="year-label">2026</div>
+                <div class="card-timeline group">
+                    <h3 class="text-xl font-bold mb-2">Ano de Teste</h3>
+                    <p>Ano de teste da CBS e IBS com alíquotas de 0,9% e 0,1%, respectivamente.</p>
+                    <div class="diagonal-stripe"></div>
+                </div>
+                <div class="timeline-icon-circle">
+                    <i class="fas fa-tools"></i>
+                </div>
+            </div>
+
+            <div class="timeline-container right">
+                <div class="year-label">2027</div>
+                <div class="card-timeline group">
+                    <h3 class="text-xl font-bold mb-2">Início da CBS</h3>
+                    <p>Início da Contribuição Social sobre Bens e Serviços (CBS). Extinção do PIS e COFINS e alíquotas do IPI reduzidas a 0.</p>
+                    <div class="diagonal-stripe"></div>
+                </div>
+                <div class="timeline-icon-circle">
+                    <i class="fas fa-coins"></i>
+                </div>
+            </div>
+
+            <div class="timeline-container left">
+                <div class="year-label">2029-2032</div>
+                <div class="card-timeline group">
+                    <h3 class="text-xl font-bold mb-2">Substituição Gradual</h3>
+                    <p>Substituição gradual do ICMS e ISS pelo IBS, com aumento progressivo das alíquotas do IBS.</p>
+                    <div class="diagonal-stripe"></div>
+                </div>
+                <div class="timeline-icon-circle">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+            </div>
+
+            <div class="timeline-container right">
+                <div class="year-label">2033</div>
+                <div class="card-timeline group">
+                    <h3 class="text-xl font-bold mb-2">Implementação Total</h3>
+                    <p>Implementação total do IBS, substituindo o ICMS e o ISS.</p>
+                    <div class="diagonal-stripe"></div>
+                </div>
+                <div class="timeline-icon-circle">
+                    <i class="fas fa-flag-checkered"></i>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const sr = ScrollReveal({
+            distance: '50px',
+            duration: 1000,
+            easing: 'cubic-bezier(0.5, 0, 0, 1)',
+            reset: true
+        });
+
+        sr.reveal('.timeline-container.left', { origin: 'left' });
+        sr.reveal('.timeline-container.right', { origin: 'right' });
+        sr.reveal('.year-label', { origin: 'bottom' });
+    </script>
+</body>
+</html>
