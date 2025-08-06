@@ -13,7 +13,7 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #edecea;
-            padding-top: 60px;
+            padding-top: 70px;
         }
 
         .main-nav {
@@ -43,25 +43,28 @@
             color: #202020;
             text-decoration: none;
             padding: 5px 10px;
-            transition: color 0.3s ease-in-out;
+            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out, font-size 0.3s ease-in-out;
         }
 
         .main-nav a:hover,
         .main-nav a.active {
             color: #a18c65;
+            transform: scale(1.1);
+            font-size: 1.1rem;
         }
 
-        /* --- Estilos do Novo Cabeçalho --- */
         .timeline-header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             padding: 2rem 1rem;
             color: #202020;
+            text-align: center;
+            flex-direction: column;
         }
-        
+
         .header-content {
-            text-align: left;
+            text-align: center;
         }
 
         .header-title {
@@ -70,7 +73,7 @@
             font-size: 2.5rem;
             margin-bottom: 0.5rem;
         }
-        
+
         .header-description {
             font-family: 'Roboto Slab', serif;
             font-style: italic;
@@ -78,17 +81,27 @@
             font-size: 1.2rem;
             color: #616161;
         }
-        
+
+        .page-footer {
+            background-color: #d7d2cb;
+            padding: 2rem 1rem;
+            text-align: center;
+            margin-top: 2rem;
+            color: #202020;
+        }
+
         .social-icons {
             display: flex;
+            justify-content: center;
             gap: 15px;
+            margin-top: 1rem;
         }
-        
+
         .social-icons a {
             color: #202020;
             transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
         }
-        
+
         .social-icon-square {
             display: flex;
             align-items: center;
@@ -98,21 +111,20 @@
             font-size: 1.5rem;
             border: 2px solid #202020;
             transition: all 0.3s ease-in-out;
+            border-radius: 50%;
         }
-        
+
         .social-icon-square:hover {
             color: #a18c65;
             border-color: #a18c65;
             transform: translateY(-3px);
         }
 
-        /* --- Restante do CSS --- */
         .timeline-vertical {
             position: relative;
             max-width: 1200px;
             margin: 0 auto;
         }
-
         .timeline-vertical::after {
             content: '';
             position: absolute;
@@ -124,87 +136,78 @@
             margin-left: -2px;
             z-index: 0;
         }
-
         .timeline-container {
-            padding: 10px 40px;
+            padding: 0 40px;
             position: relative;
             background-color: inherit;
             width: 50%;
             z-index: 1;
             transition: all 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            min-height: 80px;
         }
-
         .timeline-icon-circle {
             position: absolute;
             width: 40px;
             height: 40px;
             border-radius: 50%;
             background-color: #877551;
-            top: 25px;
             z-index: 2;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s ease-in-out;
         }
-
         .timeline-icon-circle i {
             color: #ffffff;
             font-size: 1.25rem;
         }
-
         .left .timeline-icon-circle {
             right: -20px;
         }
-
         .right .timeline-icon-circle {
             left: -20px;
         }
-
         .card-timeline:hover ~ .timeline-icon-circle {
             transform: scale(1.3);
             background-color: #202020;
         }
-
         .left {
             left: 0;
+            justify-content: flex-end;
         }
-
         .right {
             left: 50%;
+            justify-content: flex-start;
         }
-
         .timeline-container::before {
             content: " ";
             height: 0;
             position: absolute;
-            top: 22px;
             width: 0;
             z-index: 1;
             border: medium solid #d7d2cb;
             transition: all 0.3s ease-in-out;
+            top: 50%;
+            margin-top: -10px;
         }
-
         .left::before {
             right: 30px;
             border-width: 10px 0 10px 10px;
             border-color: transparent transparent transparent #d7d2cb;
         }
-        
         .right::before {
             left: 30px;
             border-width: 10px 10px 10px 0;
             border-color: transparent #d7d2cb transparent transparent;
         }
-        
         .timeline-container:hover.left::before {
             border-color: transparent transparent transparent #a18c65;
         }
-
         .timeline-container:hover.right::before {
             border-color: transparent #a18c65 transparent transparent;
         }
-
         .card-timeline {
             position: relative;
             border-radius: 1rem;
@@ -217,24 +220,21 @@
             z-index: 2;
             min-width: 20rem;
             color: #202020;
+            margin: 1rem 0;
         }
-
         .card-timeline:hover {
             background-color: #a18c65;
             color: white;
         }
-        
         .card-timeline:hover h3,
         .card-timeline:hover p {
             color: white;
         }
-
         .card-timeline h3 {
             font-size: 1.25rem;
             font-weight: bold;
             margin-bottom: 0.5rem;
         }
-
         .diagonal-stripe {
             position: absolute;
             bottom: 0;
@@ -246,11 +246,9 @@
             pointer-events: none;
             background-image: repeating-linear-gradient(45deg, white 0, white 10px, transparent 10px, transparent 20px);
         }
-
         .card-timeline:hover .diagonal-stripe {
             opacity: 0.2;
         }
-
         .year-label {
             position: absolute;
             top: 0;
@@ -259,19 +257,20 @@
             font-size: 1.25rem;
             width: 80px;
             text-align: center;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: transform 0.3s ease-in-out, font-size 0.3s ease-in-out;
         }
-
+        .year-label:hover {
+            transform: translateY(-50%) scale(1.1);
+            font-size: 1.3rem;
+        }
         .left .year-label {
             right: -130px;
-            top: 25px;
         }
-
         .right .year-label {
             left: -130px;
-            top: 25px;
         }
-
-        /* --- Estilos do Modal --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -287,12 +286,10 @@
             opacity: 0;
             transition: visibility 0s, opacity 0.3s ease-in-out;
         }
-
         .modal-overlay.active {
             visibility: visible;
             opacity: 1;
         }
-
         .modal {
             background-color: #d7d2cb;
             color: #202020;
@@ -302,19 +299,16 @@
             position: relative;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         }
-
         .modal h2 {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             font-size: 2rem;
             margin-bottom: 1rem;
         }
-
         .modal p {
             font-family: 'Inter', sans-serif;
             line-height: 1.6;
         }
-
         .modal-close-btn {
             position: absolute;
             top: 1rem;
@@ -325,18 +319,22 @@
             cursor: pointer;
             color: #202020;
         }
-
         @media screen and (max-width: 768px) {
             .timeline-vertical::after {
                 left: 31px;
             }
             .timeline-container {
                 width: 100%;
+                padding: 0 25px;
                 padding-left: 70px;
-                padding-right: 25px;
+                display: flex;
+                align-items: center;
+                min-height: auto;
             }
             .timeline-container::before {
                 left: 60px;
+                top: 50%;
+                margin-top: -10px;
                 border-width: 10px 10px 10px 0;
                 border-color: transparent #d7d2cb transparent transparent;
             }
@@ -345,16 +343,21 @@
             }
             .timeline-icon-circle {
                 left: 20px !important;
-                top: 25px;
+                top: 50%;
+                transform: translateY(-50%);
             }
             .right {
                 left: 0%;
+                justify-content: flex-start;
+            }
+            .left {
+                justify-content: flex-start;
             }
             .year-label {
                 left: -60px;
-                top: 25px;
+                top: 50%;
+                transform: translateY(-50%);
                 font-size: 1rem;
-                transform: rotate(0deg);
                 text-align: left;
             }
             .main-nav ul {
@@ -364,6 +367,9 @@
             }
             .modal {
                 margin: 1rem;
+            }
+            .card-timeline {
+                margin: 0.5rem 0;
             }
         }
     </style>
@@ -384,17 +390,6 @@
             <div class="header-content">
                 <h1 class="header-title">Reforma Tributária</h1>
                 <p class="header-description">Análise do cenário atual e futuro.</p>
-            </div>
-            <div class="social-icons">
-                <a href="#" target="_blank" class="social-icon-square">
-                    <i class="fab fa-linkedin-in"></i>
-                </a>
-                <a href="#" target="_blank" class="social-icon-square">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="#" target="_blank" class="social-icon-square">
-                    <i class="fab fa-facebook-f"></i>
-                </a>
             </div>
         </header>
 
@@ -446,7 +441,7 @@
                 <div class="year-label">2027</div>
                 <div class="card-timeline group"
                      data-title="Início da CBS (2027)"
-                     data-content="A Contribuição Social sobre Bens e Serviços (CBS) entrou em vigor, substituindo o PIS e a COFINS. As alíquotas do IPI (Imposto sobre Produtos Industrializados) foram reduzidas a zero, simplificando significativamente o sistema de tributação federal.">
+                     data-content="A Contribuição Social sobre Bens e Serviços (CBS) entrou em vigor, substituindo o PIS e a COFINS. As alíquotas do IPI (Imposto sobre Produtos Industrializados) foram reduzidas a 0, simplificando significativamente o sistema de tributação federal.">
                     <h3 class="text-xl font-bold mb-2">Início da CBS</h3>
                     <p>Início da Contribuição Social sobre Bens e Serviços (CBS). Extinção do PIS e COFINS e alíquotas do IPI reduzidas a 0.</p>
                     <div class="diagonal-stripe"></div>
@@ -495,8 +490,24 @@
         </div>
     </div>
 
+    <footer class="page-footer">
+        <div class="social-icons">
+            <a href="#" target="_blank" class="social-icon-square">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" target="_blank" class="social-icon-square">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" target="_blank" class="social-icon-square">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="#" target="_blank" class="social-icon-square">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </footer>
+
     <script>
-        // Animações
         const sr = ScrollReveal({
             distance: '50px',
             duration: 1000,
@@ -507,7 +518,6 @@
         sr.reveal('.timeline-container.right', { origin: 'right' });
         sr.reveal('.year-label', { origin: 'bottom' });
 
-        // Lógica do Modal
         const cardElements = document.querySelectorAll('.card-timeline');
         const modalOverlay = document.getElementById('modal-overlay');
         const modalTitle = document.getElementById('modal-title');
