@@ -13,10 +13,9 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: #edecea;
-            padding-top: 60px; /* Adicionado para evitar que o conteúdo fique escondido atrás do menu */
+            padding-top: 60px;
         }
 
-        /* Estilos do novo menu de navegação */
         .main-nav {
             position: fixed;
             top: 0;
@@ -24,7 +23,7 @@
             width: 100%;
             background-color: #fff;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 10; /* Garante que o menu fique na frente de todo o conteúdo */
+            z-index: 10;
             display: flex;
             justify-content: center;
             padding: 10px 20px;
@@ -52,25 +51,62 @@
             color: #a18c65;
         }
 
-        .timeline-title {
+        /* --- Estilos do Novo Cabeçalho --- */
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 1rem;
+            color: #202020;
+        }
+        
+        .header-content {
+            text-align: left;
+        }
+
+        .header-title {
             font-family: 'Montserrat', sans-serif;
             font-weight: 700;
             font-size: 2.5rem;
-            color: #202020;
-            text-align: center;
             margin-bottom: 0.5rem;
         }
-
-        .timeline-description {
+        
+        .header-description {
             font-family: 'Roboto Slab', serif;
             font-style: italic;
             font-weight: 300;
             font-size: 1.2rem;
             color: #616161;
-            text-align: center;
-            margin-bottom: 3rem;
+        }
+        
+        .social-icons {
+            display: flex;
+            gap: 15px;
+        }
+        
+        .social-icons a {
+            color: #202020;
+            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        
+        .social-icon-square {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            font-size: 1.5rem;
+            border: 2px solid #202020;
+            transition: all 0.3s ease-in-out;
+        }
+        
+        .social-icon-square:hover {
+            color: #a18c65;
+            border-color: #a18c65;
+            transform: translateY(-3px);
         }
 
+        /* --- Restante do CSS --- */
         .timeline-vertical {
             position: relative;
             max-width: 1200px;
@@ -235,42 +271,99 @@
             top: 25px;
         }
 
+        /* --- Estilos do Modal --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 20;
+            visibility: hidden;
+            opacity: 0;
+            transition: visibility 0s, opacity 0.3s ease-in-out;
+        }
+
+        .modal-overlay.active {
+            visibility: visible;
+            opacity: 1;
+        }
+
+        .modal {
+            background-color: #d7d2cb;
+            color: #202020;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        .modal h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal p {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #202020;
+        }
+
         @media screen and (max-width: 768px) {
             .timeline-vertical::after {
                 left: 31px;
             }
-
             .timeline-container {
                 width: 100%;
                 padding-left: 70px;
                 padding-right: 25px;
             }
-
             .timeline-container::before {
                 left: 60px;
                 border-width: 10px 10px 10px 0;
                 border-color: transparent #d7d2cb transparent transparent;
             }
-            
             .timeline-container:hover.left::before {
                 border-color: transparent #a18c65 transparent transparent;
             }
-
             .timeline-icon-circle {
                 left: 20px !important;
                 top: 25px;
             }
-
             .right {
                 left: 0%;
             }
-
             .year-label {
                 left: -60px;
                 top: 25px;
                 font-size: 1rem;
                 transform: rotate(0deg);
                 text-align: left;
+            }
+            .main-nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+            .modal {
+                margin: 1rem;
             }
         }
     </style>
@@ -287,14 +380,31 @@
         </ul>
     </nav>
     <div class="container mx-auto px-4 max-w-7xl">
-        <h1 class="timeline-title">Reforma Tributária</h1>
-        <p class="timeline-description">Análise do cenário atual e futuro.</p>
+        <header class="timeline-header">
+            <div class="header-content">
+                <h1 class="header-title">Reforma Tributária</h1>
+                <p class="header-description">Análise do cenário atual e futuro.</p>
+            </div>
+            <div class="social-icons">
+                <a href="#" target="_blank" class="social-icon-square">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="#" target="_blank" class="social-icon-square">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" target="_blank" class="social-icon-square">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+            </div>
+        </header>
 
         <div class="timeline-vertical">
 
             <div class="timeline-container left" id="2024">
                 <div class="year-label">2024</div>
-                <div class="card-timeline group">
+                <div class="card-timeline group"
+                     data-title="Aprovação (2024)"
+                     data-content="Em 2024, foi aprovado o Projeto de Lei Complementar (PLP) 68/2024. Este foi o marco inicial para a nova legislação tributária, definindo as diretrizes e os princípios da reforma, como a unificação de impostos e a criação do IVA Dual.">
                     <h3 class="text-xl font-bold mb-2">Aprovação</h3>
                     <p>Aprovação do Projeto de Lei Complementar (PLP) 68/2024.</p>
                     <div class="diagonal-stripe"></div>
@@ -306,7 +416,9 @@
 
             <div class="timeline-container right" id="2025">
                 <div class="year-label">2025</div>
-                <div class="card-timeline group">
+                <div class="card-timeline group"
+                     data-title="Lei Complementar (2025)"
+                     data-content="A Lei Complementar nº 214/2025 foi publicada, regulamentando em detalhes a Contribuição Social sobre Bens e Serviços (CBS) e o Imposto sobre Bens e Serviços (IBS). Essa lei estabeleceu as regras, alíquotas e exceções necessárias para a implementação dos novos impostos.">
                     <h3 class="text-xl font-bold mb-2">Lei Complementar</h3>
                     <p>Publicação da Lei Complementar nº 214/2025, regulamentando a CBS e o IBS.</p>
                     <div class="diagonal-stripe"></div>
@@ -318,7 +430,9 @@
 
             <div class="timeline-container left" id="2026">
                 <div class="year-label">2026</div>
-                <div class="card-timeline group">
+                <div class="card-timeline group"
+                     data-title="Ano de Teste (2026)"
+                     data-content="O ano de 2026 foi dedicado ao teste dos novos impostos. A CBS foi implementada com uma alíquota de 0,9% e o IBS com 0,1%. Este período permitiu que empresas e órgãos governamentais se adaptassem aos novos sistemas de cálculo e arrecadação, ajustando processos e tecnologias.">
                     <h3 class="text-xl font-bold mb-2">Ano de Teste</h3>
                     <p>Ano de teste da CBS e IBS com alíquotas de 0,9% e 0,1%, respectivamente.</p>
                     <div class="diagonal-stripe"></div>
@@ -330,7 +444,9 @@
 
             <div class="timeline-container right" id="2027">
                 <div class="year-label">2027</div>
-                <div class="card-timeline group">
+                <div class="card-timeline group"
+                     data-title="Início da CBS (2027)"
+                     data-content="A Contribuição Social sobre Bens e Serviços (CBS) entrou em vigor, substituindo o PIS e a COFINS. As alíquotas do IPI (Imposto sobre Produtos Industrializados) foram reduzidas a zero, simplificando significativamente o sistema de tributação federal.">
                     <h3 class="text-xl font-bold mb-2">Início da CBS</h3>
                     <p>Início da Contribuição Social sobre Bens e Serviços (CBS). Extinção do PIS e COFINS e alíquotas do IPI reduzidas a 0.</p>
                     <div class="diagonal-stripe"></div>
@@ -342,7 +458,9 @@
 
             <div class="timeline-container left" id="2029-2032">
                 <div class="year-label">2029-2032</div>
-                <div class="card-timeline group">
+                <div class="card-timeline group"
+                     data-title="Substituição Gradual (2029-2032)"
+                     data-content="Durante este período, a substituição do ICMS e do ISS pelo Imposto sobre Bens e Serviços (IBS) ocorreu de forma gradual. As alíquotas do IBS foram aumentadas progressivamente enquanto o ICMS e o ISS foram reduzidos, permitindo uma transição mais suave para estados, municípios e empresas.">
                     <h3 class="text-xl font-bold mb-2">Substituição Gradual</h3>
                     <p>Substituição gradual do ICMS e ISS pelo IBS, com aumento progressivo das alíquotas do IBS.</p>
                     <div class="diagonal-stripe"></div>
@@ -354,7 +472,9 @@
 
             <div class="timeline-container right" id="2033">
                 <div class="year-label">2033</div>
-                <div class="card-timeline group">
+                <div class="card-timeline group"
+                     data-title="Implementação Total (2033)"
+                     data-content="Em 2033, o processo de reforma tributária foi concluído. O IBS foi totalmente implementado, substituindo o ICMS e o ISS por completo. Este ano marcou a consolidação do novo sistema, com um Imposto sobre Valor Adicionado (IVA) unificado e transparente em todo o país.">
                     <h3 class="text-xl font-bold mb-2">Implementação Total</h3>
                     <p>Implementação total do IBS, substituindo o ICMS e o ISS.</p>
                     <div class="diagonal-stripe"></div>
@@ -367,17 +487,54 @@
         </div>
     </div>
 
+    <div id="modal-overlay" class="modal-overlay">
+        <div id="modal" class="modal">
+            <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+            <h2 id="modal-title"></h2>
+            <p id="modal-content"></p>
+        </div>
+    </div>
+
     <script>
+        // Animações
         const sr = ScrollReveal({
             distance: '50px',
             duration: 1000,
             easing: 'cubic-bezier(0.5, 0, 0, 1)',
             reset: true
         });
-
         sr.reveal('.timeline-container.left', { origin: 'left' });
         sr.reveal('.timeline-container.right', { origin: 'right' });
         sr.reveal('.year-label', { origin: 'bottom' });
+
+        // Lógica do Modal
+        const cardElements = document.querySelectorAll('.card-timeline');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        const closeBtn = document.getElementById('modal-close-btn');
+
+        cardElements.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.getAttribute('data-title');
+                const content = card.getAttribute('data-content');
+                
+                modalTitle.textContent = title;
+                modalContent.textContent = content;
+                
+                modalOverlay.classList.add('active');
+            });
+        });
+
+        closeBtn.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+        });
+
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
+        });
     </script>
 </body>
 </html>
