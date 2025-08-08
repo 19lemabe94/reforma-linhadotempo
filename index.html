@@ -25,8 +25,13 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             z-index: 10;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
             padding: 10px 20px;
+            flex-wrap: wrap;
+        }
+        .logo-nav {
+            height: 80px;
         }
 
         .main-nav ul {
@@ -49,8 +54,6 @@
         .main-nav a:hover,
         .main-nav a.active {
             color: #a18c65;
-            transform: scale(1.1);
-            font-size: 1.1rem;
         }
 
         .timeline-header {
@@ -341,6 +344,9 @@
             .timeline-container:hover.left::before {
                 border-color: transparent #a18c65 transparent transparent;
             }
+            .timeline-container:hover.right::before {
+                border-color: transparent #a18c65 transparent transparent;
+            }
             .timeline-icon-circle {
                 left: 20px !important;
                 top: 50%;
@@ -360,6 +366,10 @@
                 font-size: 1rem;
                 text-align: left;
             }
+            .main-nav {
+                flex-direction: column;
+                padding: 10px;
+            }
             .main-nav ul {
                 flex-wrap: wrap;
                 justify-content: center;
@@ -372,10 +382,20 @@
                 margin: 0.5rem 0;
             }
         }
+
+        @media screen and (max-width: 768px) {
+            body {
+                padding-top: 140px; /* ou outro valor que cubra o menu */
+            }
+        }
+
+
+
     </style>
 </head>
 <body>
     <nav class="main-nav">
+        <img src="logo.jpg" alt="Logo da Reforma Tributária" class="logo-nav">
         <ul>
             <li><a href="#2024">2024</a></li>
             <li><a href="#2025">2025</a></li>
