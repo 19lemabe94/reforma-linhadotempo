@@ -392,17 +392,19 @@
 
 
     </style>
+
 </head>
+
 <body>
     <nav class="main-nav">
         <img src="logo.jpg" alt="Logo da Reforma Tributária" class="logo-nav">
         <ul>
-            <li><a href="#2024">2024</a></li>
-            <li><a href="#2025">2025</a></li>
-            <li><a href="#2026">2026</a></li>
-            <li><a href="#2027">2027</a></li>
-            <li><a href="#2029-2032">2029 - 2032</a></li>
-            <li><a href="#2033">2033</a></li>
+            <li><a href="#2024" class="nav-link">2024</a></li>
+            <li><a href="#2025" class="nav-link">2025</a></li>
+            <li><a href="#2026" class="nav-link">2026</a></li>
+            <li><a href="#2027" class="nav-link">2027</a></li>
+            <li><a href="#2029-2032" class="nav-link">2029 - 2032</a></li>
+            <li><a href="#2033" class="nav-link">2033</a></li>
         </ul>
     </nav>
     <div class="container mx-auto px-4 max-w-7xl">
@@ -565,6 +567,32 @@
                 modalOverlay.classList.remove('active');
             }
         });
+
+
+    document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        const targetId = this.getAttribute('href').substring(1);
+        const targetElem = document.getElementById(targetId);
+        if (!targetElem) return;
+
+        // Calcula a posição para centralizar verticalmente o elemento
+        const elementRect = targetElem.getBoundingClientRect();
+        const absoluteElementTop = elementRect.top + window.pageYOffset;
+        const middleOfScreen = window.innerHeight / 2;
+        const scrollTo = absoluteElementTop - middleOfScreen + (elementRect.height / 2);
+
+        window.scrollTo({
+        top: scrollTo,
+        behavior: 'smooth'
+        });
+
+        // Opcional: para destacar o link ativo
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        this.classList.add('active');
+    });
+    });
     </script>
 </body>
 </html>
