@@ -150,6 +150,8 @@
             display: flex;
             align-items: center;
             min-height: 80px;
+            flex-direction: column;
+            justify-content: center;
         }
         .timeline-icon-circle {
             position: absolute;
@@ -179,11 +181,9 @@
         }
         .left {
             left: 0;
-            justify-content: flex-end;
         }
         .right {
             left: 50%;
-            justify-content: flex-start;
         }
         .timeline-container::before {
             content: " ";
@@ -225,6 +225,7 @@
             min-width: 20rem;
             color: #202020;
             margin: 1rem 0;
+            width: 100%;
         }
         .card-timeline:hover {
             background-color: #a18c65;
@@ -323,6 +324,50 @@
             cursor: pointer;
             color: #202020;
         }
+
+        /* NOVO CSS PARA O CARD DETALHE EM TELAS GRANDES */
+        .card-detail {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%) scale(0.9);
+            width: 400px; /* Ajuste a largura conforme necessário */
+            background-color: #a18c65;
+            color: white;
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+            z-index: 15;
+            pointer-events: none;
+        }
+        .card-detail.active {
+            opacity: 1;
+            transform: translateY(-50%) scale(1);
+            pointer-events: auto;
+        }
+
+        .card-detail.detail-right {
+            left: calc(50% + 650px); /* Posição à direita da linha do tempo */
+        }
+
+        .card-detail.detail-left {
+            right: calc(50% + 650px); /* Posição à esquerda da linha do tempo */
+        }
+        
+        .card-detail h3 {
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-detail p {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: white;
+        }
+
         @media screen and (max-width: 768px) {
             .timeline-vertical::after {
                 left: 31px;
@@ -334,6 +379,8 @@
                 display: flex;
                 align-items: center;
                 min-height: auto;
+                flex-direction: row;
+                justify-content: flex-start;
             }
             .timeline-container::before {
                 left: 60px;
@@ -342,9 +389,7 @@
                 border-width: 10px 10px 10px 0;
                 border-color: transparent #d7d2cb transparent transparent;
             }
-            .timeline-container:hover.left::before {
-                border-color: transparent #a18c65 transparent transparent;
-            }
+            .timeline-container:hover.left::before,
             .timeline-container:hover.right::before {
                 border-color: transparent #a18c65 transparent transparent;
             }
@@ -355,7 +400,6 @@
             }
             .right {
                 left: 0%;
-                justify-content: flex-start;
             }
             .left {
                 justify-content: flex-start;
@@ -382,18 +426,18 @@
             .card-timeline {
                 margin: 0.5rem 0;
             }
+            /* Oculta o card detalhe em telas pequenas */
+            .card-detail {
+                display: none;
+            }
         }
 
         @media screen and (max-width: 768px) {
             body {
-                padding-top: 140px; /* ou outro valor que cubra o menu */
+                padding-top: 140px;
             }
         }
-
-
-
     </style>
-
 </head>
 
 <body>
@@ -418,12 +462,11 @@
         </header>
 
         <div class="timeline-vertical">
-
             <div class="timeline-container right" id="2023">
                 <div class="year-label">2023</div>
                 <div class="card-timeline group"
-                     data-title="Lei Complementar (2025)"
-                     data-content="A Lei Complementar nº 214/2025 foi publicada, regulamentando em detalhes a Contribuição Social sobre Bens e Serviços (CBS) e o Imposto sobre Bens e Serviços (IBS). Essa lei estabeleceu as regras, alíquotas e exceções necessárias para a implementação dos novos impostos.">
+                    data-title="Emenda 132/2023"
+                    data-content="Altera o Sistema Tributário Nacional, com foco na reforma da tributação sobre o consumo e ajustes na tributação sobre o patrimônio. Ela unifica propostas das PECs 45 e 110/2019 e do Projeto de Lei nº 3887/2020, introduzindo três novos tributos.">
                     <h3 class="text-xl font-bold mb-2">Emenda 132/2023</h3>
                     <p>Altera o Sistema Tributário Nacional, com foco na reforma da tributação sobre o consumo e ajustes na tributação sobre o patrimônio. Ela unifica propostas das PECs 45 e 110/2019 e do Projeto de Lei nº 3887/2020, introduzindo três novos tributos.</p>
                     <div class="diagonal-stripe"></div>
@@ -436,8 +479,8 @@
             <div class="timeline-container left" id="2024">
                 <div class="year-label">2024</div>
                 <div class="card-timeline group"
-                     data-title="Aprovação (2024)"
-                     data-content="Em 2024, foi aprovado o Projeto de Lei Complementar (PLP) 68/2024. Este foi o marco inicial para a nova legislação tributária, definindo as diretrizes e os princípios da reforma, como a unificação de impostos e a criação do IVA Dual.">
+                    data-title="Aprovação do PLP 68/2024"
+                    data-content="Em 2024, foi aprovado o Projeto de Lei Complementar (PLP) 68/2024. Este foi o marco inicial para a nova legislação tributária, definindo as diretrizes e os princípios da reforma, como a unificação de impostos e a criação do IVA Dual.">
                     <h3 class="text-xl font-bold mb-2">Aprovação</h3>
                     <p>Aprovação do Projeto de Lei Complementar (PLP) 68/2024.</p>
                     <div class="diagonal-stripe"></div>
@@ -450,8 +493,8 @@
             <div class="timeline-container right" id="2025">
                 <div class="year-label">2025</div>
                 <div class="card-timeline group"
-                     data-title="Lei Complementar (2025)"
-                     data-content="A Lei Complementar nº 214/2025 foi publicada, regulamentando em detalhes a Contribuição Social sobre Bens e Serviços (CBS) e o Imposto sobre Bens e Serviços (IBS). Essa lei estabeleceu as regras, alíquotas e exceções necessárias para a implementação dos novos impostos.">
+                    data-title="Lei Complementar (2025)"
+                    data-content="A Lei Complementar nº 214/2025 foi publicada, regulamentando em detalhes a Contribuição Social sobre Bens e Serviços (CBS) e o Imposto sobre Bens e Serviços (IBS). Essa lei estabeleceu as regras, alíquotas e exceções necessárias para a implementação dos novos impostos.">
                     <h3 class="text-xl font-bold mb-2">Lei Complementar</h3>
                     <p>Publicação da Lei Complementar nº 214/2025, regulamentando a CBS e o IBS.</p>
                     <div class="diagonal-stripe"></div>
@@ -464,8 +507,8 @@
             <div class="timeline-container left" id="2026">
                 <div class="year-label">2026</div>
                 <div class="card-timeline group"
-                     data-title="Ano de Teste (2026)"
-                     data-content="O ano de 2026 foi dedicado ao teste dos novos impostos. A CBS foi implementada com uma alíquota de 0,9% e o IBS com 0,1%. Este período permitiu que empresas e órgãos governamentais se adaptassem aos novos sistemas de cálculo e arrecadação, ajustando processos e tecnologias.">
+                    data-title="Ano de Teste (2026)"
+                    data-content="O ano de 2026 foi dedicado ao teste dos novos impostos. A CBS foi implementada com uma alíquota de 0,9% e o IBS com 0,1%. Este período permitiu que empresas e órgãos governamentais se adaptassem aos novos sistemas de cálculo e arrecadação, ajustando processos e tecnologias.">
                     <h3 class="text-xl font-bold mb-2">Ano de Teste</h3>
                     <p>Ano de teste da CBS e IBS com alíquotas de 0,9% e 0,1%, respectivamente.</p>
                     <div class="diagonal-stripe"></div>
@@ -478,8 +521,8 @@
             <div class="timeline-container right" id="2027">
                 <div class="year-label">2027</div>
                 <div class="card-timeline group"
-                     data-title="Início da CBS (2027)"
-                     data-content="A Contribuição Social sobre Bens e Serviços (CBS) entrou em vigor, substituindo o PIS e a COFINS. As alíquotas do IPI (Imposto sobre Produtos Industrializados) foram reduzidas a 0, simplificando significativamente o sistema de tributação federal.">
+                    data-title="Início da CBS (2027)"
+                    data-content="A Contribuição Social sobre Bens e Serviços (CBS) entrou em vigor, substituindo o PIS e a COFINS. As alíquotas do IPI (Imposto sobre Produtos Industrializados) foram reduzidas a 0, simplificando significativamente o sistema de tributação federal.">
                     <h3 class="text-xl font-bold mb-2">Início da CBS</h3>
                     <p>Início da Contribuição Social sobre Bens e Serviços (CBS). Extinção do PIS e COFINS e alíquotas do IPI reduzidas a 0.</p>
                     <div class="diagonal-stripe"></div>
@@ -492,8 +535,8 @@
             <div class="timeline-container left" id="2029-2032">
                 <div class="year-label">2029&nbsp;/&nbsp;2032</div>
                 <div class="card-timeline group"
-                     data-title="Substituição Gradual (2029-2032)"
-                     data-content="Durante este período, a substituição do ICMS e do ISS pelo Imposto sobre Bens e Serviços (IBS) ocorreu de forma gradual. As alíquotas do IBS foram aumentadas progressivamente enquanto o ICMS e o ISS foram reduzidos, permitindo uma transição mais suave para estados, municípios e empresas.">
+                    data-title="Substituição Gradual (2029-2032)"
+                    data-content="Durante este período, a substituição do ICMS e do ISS pelo Imposto sobre Bens e Serviços (IBS) ocorreu de forma gradual. As alíquotas do IBS foram aumentadas progressivamente enquanto o ICMS e o ISS foram reduzidos, permitindo uma transição mais suave para estados, municípios e empresas.">
                     <h3 class="text-xl font-bold mb-2">Substituição Gradual</h3>
                     <p>Substituição gradual do ICMS e ISS pelo IBS, com aumento progressivo das alíquotas do IBS.</p>
                     <div class="diagonal-stripe"></div>
@@ -506,8 +549,8 @@
             <div class="timeline-container right" id="2033">
                 <div class="year-label">2033</div>
                 <div class="card-timeline group"
-                     data-title="Implementação Total (2033)"
-                     data-content="Em 2033, o processo de reforma tributária foi concluído. O IBS foi totalmente implementado, substituindo o ICMS e o ISS por completo. Este ano marcou a consolidação do novo sistema, com um Imposto sobre Valor Adicionado (IVA) unificado e transparente em todo o país.">
+                    data-title="Implementação Total (2033)"
+                    data-content="Em 2033, o processo de reforma tributária foi concluído. O IBS foi totalmente implementado, substituindo o ICMS e o ISS por completo. Este ano marcou a consolidação do novo sistema, com um Imposto sobre Valor Adicionado (IVA) unificado e transparente em todo o país.">
                     <h3 class="text-xl font-bold mb-2">Implementação Total</h3>
                     <p>Implementação total do IBS, substituindo o ICMS e o ISS.</p>
                     <div class="diagonal-stripe"></div>
@@ -516,7 +559,6 @@
                     <i class="fas fa-flag-checkered"></i>
                 </div>
             </div>
-
         </div>
     </div>
 
@@ -547,34 +589,114 @@
 
     <script>
         const sr = ScrollReveal({
-            distance: '50px',
-            duration: 1000,
-            easing: 'cubic-bezier(0.5, 0, 0, 1)',
-            reset: true
+        distance: '50px',
+        duration: 1000,
+        easing: 'cubic-bezier(0.5, 0, 0, 1)',
+        reset: true
         });
         sr.reveal('.timeline-container.left', { origin: 'left' });
         sr.reveal('.timeline-container.right', { origin: 'right' });
         sr.reveal('.year-label', { origin: 'bottom' });
 
-        
+        // Referências aos elementos do DOM
         const cardElements = document.querySelectorAll('.card-timeline');
         const modalOverlay = document.getElementById('modal-overlay');
         const modalTitle = document.getElementById('modal-title');
         const modalContent = document.getElementById('modal-content');
         const closeBtn = document.getElementById('modal-close-btn');
+        const timelineVertical = document.querySelector('.timeline-vertical');
 
+        // Array para armazenar as referências dos cards de detalhe abertos
+        const openDetailCards = new Map();
+
+        // Função para fechar um card de detalhe específico com animação
+        function closeDetailCard(card) {
+            const detailCard = openDetailCards.get(card);
+            if (detailCard) {
+                detailCard.classList.remove('active');
+                setTimeout(() => detailCard.remove(), 500);
+                openDetailCards.delete(card);
+            }
+        }
+
+        // Lógica para cada card da linha do tempo
         cardElements.forEach(card => {
             card.addEventListener('click', () => {
                 const title = card.getAttribute('data-title');
                 const content = card.getAttribute('data-content');
                 
-                modalTitle.textContent = title;
-                modalContent.textContent = content;
-                
-                modalOverlay.classList.add('active');
+                // Verifica o tamanho da tela para decidir entre modal ou card de detalhe
+                if (window.innerWidth > 768) {
+                    const parentContainer = card.closest('.timeline-container');
+                    const isRight = parentContainer.classList.contains('right');
+
+                    // Se o card de detalhe já está aberto para este card, feche-o
+                    if (openDetailCards.has(card)) {
+                        closeDetailCard(card);
+                        return;
+                    }
+
+                    // Cria o novo card de detalhe
+                    const detailCard = document.createElement('div');
+                    detailCard.classList.add('card-detail');
+                    detailCard.classList.add(isRight ? 'detail-right' : 'detail-left');
+                    detailCard.innerHTML = `
+                        <h3 class="font-bold">${title}</h3>
+                        <p class="text-white">${content}</p>
+                    `;
+                    
+                    // Adiciona o card de detalhe ao container principal da linha do tempo
+                    timelineVertical.appendChild(detailCard);
+                    openDetailCards.set(card, detailCard);
+
+                    // Posiciona o card verticalmente em relação ao card pai
+                    const cardRect = card.getBoundingClientRect();
+                    const timelineRect = timelineVertical.getBoundingClientRect();
+                    const relativeTop = cardRect.top - timelineRect.top + (cardRect.height / 2);
+                    detailCard.style.top = `${relativeTop}px`;
+
+                    // Ativa a animação após um pequeno atraso
+                    setTimeout(() => {
+                        detailCard.classList.add('active');
+                    }, 10);
+
+                } else {
+                    // Lógica do modal para telas pequenas
+                    modalTitle.textContent = title;
+                    modalContent.textContent = content;
+                    modalOverlay.classList.add('active');
+                }
             });
         });
 
+        // Event listener global para fechar cards de detalhe
+        document.addEventListener('click', (e) => {
+            // Apenas para telas maiores que 768px
+            if (window.innerWidth <= 768) return;
+
+            // Se o clique foi fora de qualquer card da timeline ou card de detalhe
+            if (!e.target.closest('.card-timeline') && !e.target.closest('.card-detail')) {
+                // Itera sobre todos os cards de detalhe abertos e os fecha
+                for (const [card, detailCard] of openDetailCards) {
+                    closeDetailCard(card);
+                }
+            }
+        });
+
+        // Event listener para fechar o modal ou todos os cards de detalhe com a tecla ESC
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                modalOverlay.classList.remove('active');
+                
+                if (openDetailCards.size > 0) {
+                    for (const [card, detailCard] of openDetailCards) {
+                        closeDetailCard(card);
+                    }
+                }
+            }
+        });
+
+        // Lógica do modal para telas pequenas (mantida, mas refatorada para ser mais simples)
         closeBtn.addEventListener('click', () => {
             modalOverlay.classList.remove('active');
         });
@@ -585,39 +707,29 @@
             }
         });
 
+        // Lógica de navegação suave (mantida)
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
 
-    document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function(event) {
-        event.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElem = document.getElementById(targetId);
+                if (!targetElem) return;
 
-        const targetId = this.getAttribute('href').substring(1);
-        const targetElem = document.getElementById(targetId);
-        if (!targetElem) return;
+                const elementRect = targetElem.getBoundingClientRect();
+                const absoluteElementTop = elementRect.top + window.pageYOffset;
+                const middleOfScreen = window.innerHeight / 2;
+                const scrollTo = absoluteElementTop - middleOfScreen + (elementRect.height / 2);
 
-        // Calcula a posição para centralizar verticalmente o elemento
-        const elementRect = targetElem.getBoundingClientRect();
-        const absoluteElementTop = elementRect.top + window.pageYOffset;
-        const middleOfScreen = window.innerHeight / 2;
-        const scrollTo = absoluteElementTop - middleOfScreen + (elementRect.height / 2);
+                window.scrollTo({
+                    top: scrollTo,
+                    behavior: 'smooth'
+                });
 
-        window.scrollTo({
-        top: scrollTo,
-        behavior: 'smooth'
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
         });
-
-        // Opcional: para destacar o link ativo
-        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-        this.classList.add('active');
-    });
-    });
-
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Escape') modalOverlay.classList.remove('active');
-        }
-    );
-
-
-
     </script>
 </body>
 </html>
