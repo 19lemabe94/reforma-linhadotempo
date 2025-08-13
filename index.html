@@ -657,11 +657,12 @@
             <li><a href="#2027" class="nav-link">2027</a></li>
             <li><a href="#2029-2032" class="nav-link">2029 - 2032</a></li>
             <li><a href="#2033" class="nav-link">2033</a></li>
+            <button id="toggle-dark-mode" class="px-4 py-2  rounded text-sm font-semibold transition flex items-center gap-2">
+                <i class="fa-solid fa-moon"></i> 
+            </button>
+
         </ul>
 
-        <button id="toggle-dark-mode" class="px-4 py-2 border rounded text-sm font-semibold transition flex items-center gap-2">
-            <i class="fa-solid fa-moon"></i> Modo Escuro
-        </button>
     </nav>
     <div class="container mx-auto px-4 max-w-7xl">
         <header class="timeline-header">
@@ -950,7 +951,7 @@
         if (localStorage.getItem('darkMode') === 'true') {
             body.classList.add('dark-mode');
             logoNav.src = 'logo-white.png'; // Adicione esta linha
-            toggleDarkModeBtn.innerHTML = '<i class="fa-solid fa-sun"></i> Modo Claro';
+            toggleDarkModeBtn.innerHTML = '<i class="fa-solid fa-sun"></i> ';
         }
 
         // Alternar tema
@@ -967,8 +968,8 @@
             }
 
             toggleDarkModeBtn.innerHTML = darkModeAtivo 
-                ? '<i class="fa-solid fa-sun"></i> Modo Claro'
-                : '<i class="fa-solid fa-moon"></i> Modo Escuro';
+                ? '<i class="fa-solid fa-sun"></i> '
+                : '<i class="fa-solid fa-moon"></i> ';
         });
 
             // Referências para o novo botão e o menu
