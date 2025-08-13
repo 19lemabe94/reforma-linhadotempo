@@ -454,9 +454,16 @@
 
 
                 /* ====== MODO ESCURO ====== */
+        
         body.dark-mode {
             background-color: #1e1e1e;
             color: #f5f5f5;
+        }
+        body.dark-mode .menu-toggle{        
+            color: #f5f5f5;
+        }
+        body.dark-mode .menu-toggle:hover{        
+            color: #a18c65;
         }
 
         body.dark-mode .year-label {
@@ -534,15 +541,115 @@
         }
 
 
+                /* Estilo para o botão do menu hambúrguer */
+        .menu-toggle {
+            display: none; /* Oculta o botão por padrão em telas grandes */
+            background: none;
+            border: none;
+            color: #202020;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            margin-right: 20px;
+        }
 
+        /* Oculta o menu em telas pequenas por padrão */
+        .main-nav ul {
+            /* ... (Mantenha seu estilo original) ... */
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            gap: 20px;
+        }
 
+        /* Classe que mostra o menu (adicionada via JS) */
+        .main-nav ul.active {
+            display: flex;
+        }
+
+        /* Responsividade para o menu hambúrguer */
+        @media screen and (max-width: 768px) {
+            .main-nav {
+                flex-direction: row; /* Volta para o layout em linha para alinhar os elementos */
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px;
+            }
+
+            .main-nav .logo-nav {
+                margin-right: auto; /* Empurra o logo para a esquerda */
+            }
+
+            .menu-toggle {
+                display: block; /* Exibe o botão do hambúrguer em telas pequenas */
+            }
+
+  
+            .main-nav ul {
+                display: none;
+                position: absolute;
+                top: 100px;
+                left: 0;
+                width: 100%;
+                background-color: #fff; /* cor inicial do fundo */
+                flex-direction: column;
+                text-align: center;
+                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+                padding: 1rem 0;
+                z-index: 99;
+                transition: transform 0.4s ease, opacity 0.4s ease, background-color 0.4s ease; /* Adicione a transição para a cor de fundo */
+                transform: translateY(-10px);
+                opacity: 0;
+                pointer-events: none;
+            }
+            
+            /* Quando o menu está ativo, ele aparece com animação */
+            .main-nav ul.active {
+                display: flex;
+                transform: translateY(0);
+                opacity: 1;
+                pointer-events: auto;
+                /* Altera a cor de fundo para ser semi-transparente */
+                background-color: rgba(255, 255, 255, 0.95);
+            }
+
+            .main-nav ul li a {
+                padding: 15px 20px;
+                display: block;
+                font-size: 1rem; /* Tamanho da fonte inicial */
+                transition: font-size 0.3s ease, color 0.3s ease, background-color 0.3s ease; /* Adicione a transição para o tamanho da fonte */
+            }
+
+            .main-nav ul li a:hover {
+                background-color: rgba(0, 0, 0, 0.05); /* Um pequeno destaque ao passar o mouse */
+                font-size: 1.1rem; /* Aumenta a fonte no hover */
+            }
+
+            /* Estilo do menu hambúrguer no modo escuro */
+            body.dark-mode .main-nav ul {
+                background-color: white;
+            }
+
+            body.dark-mode .main-nav ul.active {
+                background-color: rgba(43, 43, 43, 0.95); /* Semi-transparente no modo escuro */
+            }
+
+            body.dark-mode .main-nav ul li a:hover {
+                background-color: rgba(255, 255, 255, 0.05);
+            }
+        }
     </style>
 </head>
 
 <body>
     <nav class="main-nav">
         <img src="logo.jpg" alt="Logo da Reforma Tributária" class="logo-nav">
-        <ul>
+        
+        <button id="menu-toggle" class="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <ul id="main-menu">
             <li><a href="#2023" class="nav-link">2023</a></li>
             <li><a href="#2024" class="nav-link">2024</a></li>
             <li><a href="#2025" class="nav-link">2025</a></li>
@@ -551,15 +658,10 @@
             <li><a href="#2029-2032" class="nav-link">2029 - 2032</a></li>
             <li><a href="#2033" class="nav-link">2033</a></li>
         </ul>
-       
-        
-       
+
         <button id="toggle-dark-mode" class="px-4 py-2 border rounded text-sm font-semibold transition flex items-center gap-2">
             <i class="fa-solid fa-moon"></i> Modo Escuro
         </button>
-    
-    
-    
     </nav>
     <div class="container mx-auto px-4 max-w-7xl">
         <header class="timeline-header">
@@ -804,7 +906,7 @@
             }
         });
 
-        // Lógica do modal para telas pequenas (mantida, mas refatorada para ser mais simples)
+        // Lógica do modal para telas pequenas 
         closeBtn.addEventListener('click', () => {
             modalOverlay.classList.remove('active');
         });
@@ -815,7 +917,7 @@
             }
         });
 
-        // Lógica de navegação suave (mantida)
+        // Lógica de navegação suave 
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function(event) {
                 event.preventDefault();
@@ -868,6 +970,23 @@
                 ? '<i class="fa-solid fa-sun"></i> Modo Claro'
                 : '<i class="fa-solid fa-moon"></i> Modo Escuro';
         });
+
+            // Referências para o novo botão e o menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainMenu = document.getElementById('main-menu');
+
+    // Adiciona um evento de clique ao botão do hambúrguer
+    menuToggle.addEventListener('click', () => {
+        mainMenu.classList.toggle('active');
+    });
+
+    // Fecha o menu ao clicar em um link (opcional, mas melhora a usabilidade)
+    mainMenu.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            mainMenu.classList.remove('active');
+        });
+    });
+
     </script>
 </body>
 </html>
