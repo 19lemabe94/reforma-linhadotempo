@@ -31,7 +31,7 @@
             flex-wrap: wrap;
         }
         .logo-nav {
-            height: 80px;
+            height: 100px;
         }
 
         .main-nav ul {
@@ -538,8 +538,8 @@
         }
         body.dark-mode .logo-nav {
             margin-left: 50px;
+            height: 100px;
         }
-
 
                 /* Estilo para o botão do menu hambúrguer */
         .menu-toggle {
@@ -637,7 +637,9 @@
             body.dark-mode .main-nav ul li a:hover {
                 background-color: rgba(255, 255, 255, 0.05);
             }
+            
         }
+
     </style>
 </head>
 
@@ -648,8 +650,11 @@
         <button id="menu-toggle" class="menu-toggle">
             <i class="fa-solid fa-bars"></i>
         </button>
-
+        <a id="toggle-dark-mode" class="social-icon-square">
+            <i class="fa-solid fa-moon"></i> 
+        </a>
         <ul id="main-menu">
+            
             <li><a href="#2023" class="nav-link">2023</a></li>
             <li><a href="#2024" class="nav-link">2024</a></li>
             <li><a href="#2025" class="nav-link">2025</a></li>
@@ -657,9 +662,7 @@
             <li><a href="#2027" class="nav-link">2027</a></li>
             <li><a href="#2029-2032" class="nav-link">2029 - 2032</a></li>
             <li><a href="#2033" class="nav-link">2033</a></li>
-            <button id="toggle-dark-mode" class="px-4 py-2  rounded text-sm font-semibold transition flex items-center gap-2">
-                <i class="fa-solid fa-moon"></i> 
-            </button>
+           
 
         </ul>
 
