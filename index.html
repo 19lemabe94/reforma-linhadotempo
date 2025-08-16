@@ -550,7 +550,7 @@
             font-size: 1.5rem;
             cursor: pointer;
             transition: transform 0.3s ease;
-            margin-right: 20px;
+            margin-right: 0 px;
         }
 
         /* Oculta o menu em telas pequenas por padrão */
@@ -639,7 +639,14 @@
             }
             
         }
-
+        #toggle-dark-mode {
+            margin-left: auto;
+            text-decoration: none;
+        }
+        .menu-toggle {
+            margin-left: 50px;
+        }
+       
     </style>
 </head>
 
@@ -647,12 +654,14 @@
     <nav class="main-nav">
         <img src="logo.jpg" alt="Logo da Reforma Tributária" class="logo-nav">
         
-        <button id="menu-toggle" class="menu-toggle">
-            <i class="fa-solid fa-bars"></i>
-        </button>
+        
         <a id="toggle-dark-mode" class="social-icon-square">
             <i class="fa-solid fa-moon"></i> 
         </a>
+
+        <button id="menu-toggle" class="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+        </button>
         <ul id="main-menu">
             
             <li><a href="#2023" class="nav-link">2023</a></li>
