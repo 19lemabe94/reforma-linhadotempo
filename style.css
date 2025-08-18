@@ -22,6 +22,7 @@
         }
         .logo-nav {
             height: 80px;
+            border: 2px solid;
         }
 
         .main-nav ul {
@@ -109,15 +110,14 @@
             transition: all 0.3s ease-in-out;
             border-radius: 50%;
         }
-        .social-icon-square1 {
+        .theme-btn{
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 10px;
-            height: 10px;
+            width: 40px;
+            height: 40px;
             font-size: 1.5rem;
             transition: all 0.3s ease-in-out;
-            margin-right: 200px;
         }
 
         .social-icon-square:hover {
@@ -547,12 +547,12 @@
         .menu-toggle {
             display: none; /* Oculta o botão por padrão em telas grandes */
             background: none;
-            border: none;
             color: #202020;
             font-size: 1.5rem;
             cursor: pointer;
             transition: transform 0.3s ease;
             margin-right: 0 px;
+            width: 60px;
         }
 
         /* Oculta o menu em telas pequenas por padrão */
