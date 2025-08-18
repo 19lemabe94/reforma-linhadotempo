@@ -7,1000 +7,385 @@
     <title>Linha do Tempo da Reforma Tributária</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/scrollreveal"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700&family=Roboto+Slab:ital,wght@1,300&display=swap');
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #edecea;
-            padding-top: 70px;
-        }
-
-        .main-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background-color: #fff;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            z-index: 100;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 20px;
-            flex-wrap: wrap;
-        }
-        .logo-nav {
-            height: 80px;
-        }
-
-        .main-nav ul {
-            display: flex;
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            gap: 20px;
-        }
-
-        .main-nav a {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 600;
-            color: #202020;
-            text-decoration: none;
-            padding: 5px 10px;
-            transition: color 0.3s ease-in-out, transform 0.3s ease-in-out, font-size 0.3s ease-in-out;
-        }
-
-        .main-nav a:hover,
-        .main-nav a.active {
-            color: #a18c65;
-            text-decoration: underline;
-        }
-
-        .timeline-header {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem 1rem;
-            color: #202020;
-            text-align: center;
-            flex-direction: column;
-        }
-
-        .header-content {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .header-title {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 2.8rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .header-description {
-            font-family: 'Roboto Slab', serif;
-            font-style: italic;
-            font-weight: 300;
-            font-size: 1.6rem;
-            color: #616161;
-        }
-
-        .page-footer {
-            background-color: #d7d2cb;
-            padding: 2rem 1rem;
-            text-align: center;
-            margin-top: 2rem;
-            color: #202020;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 1rem;
-        }
-
-        .social-icons a {
-            color: #202020;
-            transition: color 0.4s ease-in-out, transform 0.3s ease-in-out;
-        }
-
-        .social-icon-square {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            font-size: 1.5rem;
-            border: 2px solid #202020;
-            transition: all 0.3s ease-in-out;
-            border-radius: 50%;
-        }
-
-        .social-icon-square:hover {
-            color: #a18c65;
-            border-color: #a18c65;
-            transform: translateY(-3px);
-        }
-
-        .timeline-vertical {
-            position: relative;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        .timeline-vertical::after {
-            content: '';
-            position: absolute;
-            width: 4px;
-            background-color: #202020;
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-            z-index: 0;
-        }
-        .timeline-container {
-            padding: 0 40px;
-            position: relative;
-            background-color: inherit;
-            width: 50%;
-            z-index: 1;
-            transition: all 0.3s ease-in-out;
-            display: flex;
-            align-items: center;
-            min-height: 80px;
-            flex-direction: column;
-            justify-content: center;
-        }
-        .timeline-icon-circle {
-            position: absolute;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: #877551;
-            z-index: 2;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease-in-out;
-        }
-        .timeline-icon-circle i {
-            color: #ffffff;
-            font-size: 1.25rem;
-        }
-        .left .timeline-icon-circle {
-            right: -20px;
-        }
-        .right .timeline-icon-circle {
-            left: -20px;
-        }
-        .card-timeline:hover ~ .timeline-icon-circle {
-            transform: scale(1.3);
-            background-color: #202020;
-        }
-        .left {
-            left: 0;
-        }
-        .right {
-            left: 50%;
-        }
-        .timeline-container::before {
-            content: " ";
-            height: 0;
-            position: absolute;
-            width: 0;
-            z-index: 1;
-            border: medium solid #d7d2cb;
-            transition: all 0.3s ease-in-out;
-            top: 50%;
-            margin-top: -10px;
-        }
-        .left::before {
-            right: 30px;
-            border-width: 10px 0 10px 10px;
-            border-color: transparent transparent transparent #d7d2cb;
-        }
-        .right::before {
-            left: 30px;
-            border-width: 10px 10px 10px 0;
-            border-color: transparent #d7d2cb transparent transparent;
-        }
-        .timeline-container:hover.left::before {
-            border-color: transparent transparent transparent #a18c65;
-        }
-        .timeline-container:hover.right::before {
-            border-color: transparent #a18c65 transparent transparent;
-        }
-        .card-timeline {
-            position: relative;
-            border-radius: 1rem;
-            padding: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            overflow: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            background-color: #d7d2cb;
-            cursor: pointer;
-            z-index: 2;
-            min-width: 20rem;
-            color: #202020;
-            margin: 1rem 0;
-            width: 100%;
-        }
-        .card-timeline:hover {
-            background-color: #a18c65;
-            
-        }
-        .card-timeline:hover h3,
-        .card-timeline:hover p {
-            color: black;
-        }
-        .card-timeline h3 {
-            font-size: 1.25rem;
-            font-weight: bold;
-            margin-bottom: 0.5rem;
-        }
-        /* .diagonal-stripe {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 6rem;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            background-image: repeating-linear-gradient(45deg, white 0, white 10px, transparent 10px, transparent 20px);
-        }
-        .timeline-container.left .diagonal-stripe {
-            right: auto;
-            left: 0;
-        }
-
-        .timeline-container.left .card-timeline:hover .diagonal-stripe {
-            background-image: repeating-linear-gradient(135deg, white 0, white 10px, transparent 10px, transparent 20px);
-        }
-        .card-timeline:hover .diagonal-stripe {
-            opacity: 0.2;
-        } */
-        .year-label {
-            position: absolute;
-            top: 0;
-            font-weight: 700;
-            color: #202020;
-            font-size: 1.25rem;
-            width: 80px;
-            text-align: center;
-            top: 50%;
-            transform: translateY(-50%);
-            transition: transform 0.3s ease-in-out, font-size 0.3s ease-in-out;
-        }
-        .year-label:hover {
-            transform: translateY(-50%) scale(1.1);
-            font-size: 1.3rem;
-        }
-        .left .year-label {
-            right: -130px;
-        }
-        .right .year-label {
-            left: -130px;
-        }
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 20;
-            visibility: hidden;
-            opacity: 0;
-            transition: visibility 0s, opacity 0.3s ease-in-out;
-        }
-        .modal-overlay.active {
-            visibility: visible;
-            opacity: 1;
-        }
-        .modal {
-            background-color: #d7d2cb;
-            color: #202020;
-            padding: 2rem;
-            border-radius: 1rem;
-            max-width: 600px;
-            position: relative;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-        }
-        .modal h2 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-        }
-        .modal p {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-        }
-        .modal-close-btn {
-            position: absolute;
-            top: 1rem;
-            right: 1rem;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            cursor: pointer;
-            color: #202020;
-        }
-
-        /* NOVO CSS PARA O CARD DETALHE EM TELAS GRANDES */
-        .card-detail {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%) scale(0.9);
-            width: 400px; /* Ajuste a largura conforme necessário */
-            background-color: #a18c65;
-            color: black;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 8px 16px -4px rgba(0, 0, 0, 0.2);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.68, -0.55, 0.27, 1.55);
-            z-index: 15;
-            pointer-events: none;
-        }
-        .card-detail.active {
-            opacity: 1;
-            transform: translateY(-50%) scale(1);
-            pointer-events: auto;
-        }
-
-        .card-detail.detail-right {
-            left: calc(50% + 650px); /* Posição à direita da linha do tempo */
-        }
-
-        .card-detail.detail-left {
-            right: calc(50% + 650px); /* Posição à esquerda da linha do tempo */
-        }
-        
-        .card-detail h3 {
-            font-family: 'Montserrat', sans-serif;
-            font-weight: 700;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .card-detail p {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: black;
-        }
-
-        @media screen and (max-width: 768px) {
-            .timeline-vertical::after {
-                left: 31px;
-            }
-            .timeline-container {
-                width: 100%;
-                padding: 0 25px;
-                padding-left: 70px;
-                display: flex;
-                align-items: center;
-                min-height: auto;
-                flex-direction: row;
-                justify-content: flex-start;
-            }
-            .timeline-container::before {
-                left: 60px;
-                top: 50%;
-                margin-top: -10px;
-                border-width: 10px 10px 10px 0;
-                border-color: transparent #d7d2cb transparent transparent;
-            }
-            .timeline-container:hover.left::before,
-            .timeline-container:hover.right::before {
-                border-color: transparent #a18c65 transparent transparent;
-            }
-            .timeline-icon-circle {
-                left: 20px !important;
-                top: 50%;
-                transform: translateY(-50%);
-            }
-            .right {
-                left: 0%;
-            }
-            .left {
-                justify-content: flex-start;
-            }
-            .year-label {
-                left: -60px;
-                top: 50%;
-                transform: translateY(-50%);
-                font-size: 1rem;
-                text-align: left;
-            }
-            .main-nav {
-                flex-direction: column;
-                padding: 10px;
-            }
-            .main-nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
-            }
-            .modal {
-                margin: 1rem;
-            }
-            .card-timeline {
-                margin: 0.5rem 0;
-            }
-            /* Oculta o card detalhe em telas pequenas */
-            .card-detail {
-                display: none;
-            }
-        }
-
-        button:hover {
-            transform: scale(1.3);
-            color: #877551;
-        }
-
-        @media screen and (max-width: 768px) {
-            body {
-                padding-top: 140px;
-            }
-        }
-
-
-
-                /* ====== MODO ESCURO ====== */
-        
-        body.dark-mode {
-            background-color: #1e1e1e;
-            color: #f5f5f5;
-        }
-        body.dark-mode .menu-toggle{        
-            color: #f5f5f5;
-        }
-        body.dark-mode .menu-toggle:hover{        
-            color: #a18c65;
-        }
-
-        body.dark-mode .year-label {
-            background-color: #1e1e1e;
-            color: #f5f5f5;
-        }
-        body.dark-mode .header-description {
-            background-color: #1e1e1e;
-            color:#a18c65;
-        }
-        body.dark-mode .header-title {
-            background-color: #1e1e1e;
-            color: #f5f5f5;
-        }
-
-        /* Nav e footer */
-        body.dark-mode .main-nav {
-            background-color: #2b2b2b;
-            box-shadow: 0 2px 4px rgba(255, 255, 255, 0.05);
-        }
-        body.dark-mode .main-nav a {
-            color: #f5f5f5;
-        }
-        body.dark-mode .main-nav a:hover,
-        body.dark-mode .main-nav a.active {
-            color: #a18c65;
-        }
-
-        /* Cards */
-        body.dark-mode .card-timeline {
-            background-color: #2d2d2d;
-            color: #f5f5f5;
-        }
-        body.dark-mode .card-timeline:hover {
-            background-color: #a18c65;
-            
-        }
-        body.dark-mode .card-detail {
-            background-color: #2d2d2d;
-            color: #f5f5f5;
-        }
-        body.dark-mode .card-detail p {
-            background-color: #2d2d2d;
-            color: #f5f5f5;
-        }
-
-        /* Linha central */
-        body.dark-mode .timeline-vertical::after {
-            background-color: #a18c65;
-        }
-
-        /* Modal */
-        body.dark-mode .modal {
-            background-color: #2d2d2d;
-            color: #f5f5f5;
-        }
-
-        /* Footer */
-        body.dark-mode .page-footer {
-            background-color: #2b2b2b;
-            color: #f5f5f5;
-        }
-
-        /* Ícones sociais */
-        body.dark-mode .social-icon-square {
-            border-color: #f5f5f5;
-            color: #f5f5f5;
-        }
-        body.dark-mode .social-icon-square:hover {
-            border-color: #a18c65;
-            color:#a18c65;
-        }
-        body.dark-mode .logo-nav {
-            margin-left: 10px;
-            height: 60px;
-        }
-
-                /* Estilo para o botão do menu hambúrguer */
-        .menu-toggle {
-            display: none; /* Oculta o botão por padrão em telas grandes */
-            background: none;
-            border: none;
-            color: #202020;
-            font-size: 1.5rem;
-            cursor: pointer;
-            transition: transform 0.3s ease;
-            margin-right: 0 px;
-        }
-
-        /* Oculta o menu em telas pequenas por padrão */
-        .main-nav ul {
-            /* ... (Mantenha seu estilo original) ... */
-            list-style: none;
-            margin: 0;
-            padding: 0;
-            gap: 20px;
-        }
-
-        /* Classe que mostra o menu (adicionada via JS) */
-        .main-nav ul.active {
-            display: flex;
-        }
-
-        /* Responsividade para o menu hambúrguer */
-        @media screen and (max-width: 768px) {
-            .main-nav {
-                flex-direction: row; /* Volta para o layout em linha para alinhar os elementos */
-                justify-content: space-between;
-                align-items: center;
-                padding: 10px 20px;
-            }
-
-            .main-nav .logo-nav {
-                margin-right: auto; /* Empurra o logo para a esquerda */
-            }
-
-            .menu-toggle {
-                display: block; /* Exibe o botão do hambúrguer em telas pequenas */
-            }
-
-  
-            .main-nav ul {
-                display: none;
-                position: absolute;
-                top: 100px;
-                left: 0;
-                width: 100%;
-                background-color: #fff; /* cor inicial do fundo */
-                flex-direction: column;
-                text-align: center;
-                box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-                padding: 1rem 0;
-                z-index: 99;
-                transition: transform 0.4s ease, opacity 0.4s ease, background-color 0.4s ease; /* Adicione a transição para a cor de fundo */
-                transform: translateY(-10px);
-                opacity: 0;
-                pointer-events: none;
-            }
-            
-            /* Quando o menu está ativo, ele aparece com animação */
-            .main-nav ul.active {
-                display: flex;
-                transform: translateY(0);
-                opacity: 1;
-                pointer-events: auto;
-                /* Altera a cor de fundo para ser semi-transparente */
-                background-color: rgba(255, 255, 255, 0.95);
-            }
-
-            .main-nav ul li a {
-                padding: 15px 20px;
-                display: block;
-                font-size: 1rem; /* Tamanho da fonte inicial */
-                transition: font-size 0.3s ease, color 0.3s ease, background-color 0.3s ease; /* Adicione a transição para o tamanho da fonte */
-            }
-
-            .main-nav ul li a:hover {
-                background-color: rgba(0, 0, 0, 0.05); /* Um pequeno destaque ao passar o mouse */
-                font-size: 1.1rem; /* Aumenta a fonte no hover */
-            }
-
-            /* Estilo do menu hambúrguer no modo escuro */
-            body.dark-mode .main-nav ul {
-                background-color: white;
-            }
-
-            body.dark-mode .main-nav ul.active {
-                background-color: rgba(43, 43, 43, 0.95); /* Semi-transparente no modo escuro */
-            }
-
-            body.dark-mode .main-nav ul li a:hover {
-                background-color: rgba(255, 255, 255, 0.05);
-            }
-            
-        }
-        #toggle-dark-mode {
-            margin-left: auto;
-            text-decoration: none;
-        }
-        .menu-toggle {
-            margin-left: 50px;
-        }
-       
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <nav class="main-nav">
-        <img src="logo.jpg" alt="Logo da Reforma Tributária" class="logo-nav">
-        
-        
-        <a id="toggle-dark-mode" class="social-icon-square">
-            <i class="fa-solid fa-moon"></i> 
-        </a>
+    <nav class="main-nav">
+        <img src="logo.jpg" alt="Logo da Reforma Tributária" class="logo-nav">
+        
+        
+        <a id="toggle-dark-mode" class="social-icon-square">
+            <i class="fa-solid fa-moon"></i> 
+        </a>
 
-        <button id="menu-toggle" class="menu-toggle">
-            <i class="fa-solid fa-bars"></i>
-        </button>
-        <ul id="main-menu">
-            
-            <li><a href="#2023" class="nav-link">2023</a></li>
-            <li><a href="#2024" class="nav-link">2024</a></li>
-            <li><a href="#2025" class="nav-link">2025</a></li>
-            <li><a href="#2026" class="nav-link">2026</a></li>
-            <li><a href="#2027" class="nav-link">2027</a></li>
-            <li><a href="#2029-2032" class="nav-link">2029 - 2032</a></li>
-            <li><a href="#2033" class="nav-link">2033</a></li>
-           
+        <button id="menu-toggle" class="menu-toggle">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+        <ul id="main-menu">
+            
+            <li><a href="#2023" class="nav-link">2023</a></li>
+            <li><a href="#2024" class="nav-link">2024</a></li>
+            <li><a href="#2025" class="nav-link">2025</a></li>
+            <li><a href="#2026" class="nav-link">2026</a></li>
+            <li><a href="#2027" class="nav-link">2027</a></li>
+            <li><a href="#2029-2032" class="nav-link">2029 - 2032</a></li>
+            <li><a href="#2033" class="nav-link">2033</a></li>
+           
 
-        </ul>
+        </ul>
 
-    </nav>
-    <div class="container mx-auto px-4 max-w-7xl">
-        <header class="timeline-header">
-            <div class="header-content">
-                <h1 class="header-title">Reforma Tributária</h1>
-                <p class="header-description">Análise do cenário atual e futuro.</p>
-            </div>
-        </header>
+    </nav>
+    <div class="container mx-auto px-4 max-w-7xl">
+        <header class="timeline-header">
+            <div class="header-content">
+                <h1 class="header-title">Reforma Tributária</h1>
+                <p class="header-description">Análise do cenário atual e futuro.</p>
+            </div>
+        </header>
 
-        <div class="timeline-vertical">
-            <div class="timeline-container right" id="2023">
-                <div class="year-label">2023</div>
-                <div class="card-timeline group"
-                    data-title="Emenda 132/2023"
-                    data-content="Altera o Sistema Tributário Nacional, com foco na reforma da tributação sobre o consumo e ajustes na tributação sobre o patrimônio. Ela unifica propostas das PECs 45 e 110/2019 e do Projeto de Lei nº 3887/2020, introduzindo três novos tributos.">
-                    <h3 class="text-xl font-bold mb-2">Emenda 132/2023</h3>
-                    <p>Altera o Sistema Tributário Nacional, com foco na reforma da tributação sobre o consumo e ajustes na tributação sobre o patrimônio. Ela unifica propostas das PECs 45 e 110/2019 e do Projeto de Lei nº 3887/2020, introduzindo três novos tributos.</p>
-                    <div class="diagonal-stripe"></div>
-                </div>
-                <div class="timeline-icon-circle">
-                    <i class="fa-solid fa-flag"></i>
-                </div>
-            </div>
+        <div class="timeline-vertical">
+            <div class="timeline-container right" id="2023">
+                <div class="year-label">2023</div>
+                <div class="card-timeline group" data-content="conteudo-2023">
+                    <h3 class="text-xl font-bold mb-2">Emenda 132/2023</h3>
+                    <p>Altera o Sistema Tributário Nacional...</p>
+                </div>
+                <div class="timeline-icon-circle">
+                    <i class="fa-solid fa-flag"></i>
+                </div>
+            </div>
 
-            <div class="timeline-container left" id="2024">
-                <div class="year-label">2024</div>
-                <div class="card-timeline group"
-                    data-title="Aprovação do PLP 68/2024"
-                    data-content="Em 2024, foi aprovado o Projeto de Lei Complementar (PLP) 68/2024. Este foi o marco inicial para a nova legislação tributária, definindo as diretrizes e os princípios da reforma, como a unificação de impostos e a criação do IVA Dual.">
-                    <h3 class="text-xl font-bold mb-2">Aprovação</h3>
-                    <p>Aprovação do Projeto de Lei Complementar (PLP) 68/2024.</p>
-                    <div class="diagonal-stripe"></div>
-                </div>
-                <div class="timeline-icon-circle">
-                    <i class="fas fa-thumbs-up"></i>
-                </div>
-            </div>
+            <div class="timeline-container left" id="2024">
+                <div class="year-label">2024</div>
+                <div class="card-timeline group" data-content="conteudo-2024">
+                    <h3 class="text-xl font-bold mb-2">Aprovação</h3>
+                    <p>Aprovação do Projeto de Lei Complementar (PLP) 68/2024.</p>
+                </div>
+                <div class="timeline-icon-circle">
+                    <i class="fas fa-thumbs-up"></i>
+                </div>
+            </div>
 
-            <div class="timeline-container right" id="2025">
-                <div class="year-label">2025</div>
-                <div class="card-timeline group"
-                    data-title="Lei Complementar (2025)"
-                    data-content="A Lei Complementar nº 214/2025 foi publicada, regulamentando em detalhes a Contribuição Social sobre Bens e Serviços (CBS) e o Imposto sobre Bens e Serviços (IBS). Essa lei estabeleceu as regras, alíquotas e exceções necessárias para a implementação dos novos impostos.">
-                    <h3 class="text-xl font-bold mb-2">Lei Complementar</h3>
-                    <p>Publicação da Lei Complementar nº 214/2025, regulamentando a CBS e o IBS.</p>
-                    <div class="diagonal-stripe"></div>
-                </div>
-                <div class="timeline-icon-circle">
-                    <i class="fas fa-scroll"></i>
-                </div>
-            </div>
+            <div class="timeline-container right" id="2025">
+                <div class="year-label">2025</div>
+                <div class="card-timeline group" data-content="conteudo-2025">
+                    <h3 class="text-xl font-bold mb-2">Lei Complementar</h3>
+                    <p>Publicação da Lei Complementar nº 214/2025, regulamentando a CBS e o IBS.</p>
+                </div>
+                <div class="timeline-icon-circle">
+                    <i class="fas fa-scroll"></i>
+                </div>
+            </div>
 
-            <div class="timeline-container left" id="2026">
-                <div class="year-label">2026</div>
-                <div class="card-timeline group"
-                    data-title="Ano de Teste (2026)"
-                    data-content="O ano de 2026 foi dedicado ao teste dos novos impostos. A CBS foi implementada com uma alíquota de 0,9% e o IBS com 0,1%. Este período permitiu que empresas e órgãos governamentais se adaptassem aos novos sistemas de cálculo e arrecadação, ajustando processos e tecnologias.">
-                    <h3 class="text-xl font-bold mb-2">Ano de Teste</h3>
-                    <p>Ano de teste da CBS e IBS com alíquotas de 0,9% e 0,1%, respectivamente.</p>
-                    <div class="diagonal-stripe"></div>
-                </div>
-                <div class="timeline-icon-circle">
-                    <i class="fas fa-tools"></i>
-                </div>
-            </div>
+            <div class="timeline-container left" id="2026">
+                <div class="year-label">2026</div>
+                <div class="card-timeline group" data-content="conteudo-2026">
+                    <h3 class="text-xl font-bold mb-2">Ano de Teste</h3>
+                    <p>Ano de teste da CBS e IBS com alíquotas de 0,9% e 0,1%, respectivamente.</p>
+                </div>
+                <div class="timeline-icon-circle">
+                    <i class="fas fa-tools"></i>
+                </div>
+            </div>
 
-            <div class="timeline-container right" id="2027">
-                <div class="year-label">2027</div>
-                <div class="card-timeline group"
-                    data-title="Início da CBS (2027)"
-                    data-content="A Contribuição Social sobre Bens e Serviços (CBS) entrou em vigor, substituindo o PIS e a COFINS. As alíquotas do IPI (Imposto sobre Produtos Industrializados) foram reduzidas a 0, simplificando significativamente o sistema de tributação federal.">
-                    <h3 class="text-xl font-bold mb-2">Início da CBS</h3>
-                    <p>Início da Contribuição Social sobre Bens e Serviços (CBS). Extinção do PIS e COFINS e alíquotas do IPI reduzidas a 0.</p>
-                    <div class="diagonal-stripe"></div>
-                </div>
-                <div class="timeline-icon-circle">
-                    <i class="fas fa-coins"></i>
-                </div>
-            </div>
+            <div class="timeline-container right" id="2027">
+                <div class="year-label">2027</div>
+                <div class="card-timeline group" data-content="conteudo-2027">
+                    <h3 class="text-xl font-bold mb-2">Início da CBS</h3>
+                    <p>Início da Contribuição Social sobre Bens e Serviços (CBS). Extinção do PIS e COFINS e alíquotas do IPI reduzidas a 0.</p>
+                </div>
+                <div class="timeline-icon-circle">
+                    <i class="fas fa-coins"></i>
+                </div>
+            </div>
 
-            <div class="timeline-container left" id="2029-2032">
-                <div class="year-label">2029&nbsp;/&nbsp;2032</div>
-                <div class="card-timeline group"
-                    data-title="Substituição Gradual (2029-2032)"
-                    data-content="Durante este período, a substituição do ICMS e do ISS pelo Imposto sobre Bens e Serviços (IBS) ocorreu de forma gradual. As alíquotas do IBS foram aumentadas progressivamente enquanto o ICMS e o ISS foram reduzidos, permitindo uma transição mais suave para estados, municípios e empresas.">
-                    <h3 class="text-xl font-bold mb-2">Substituição Gradual</h3>
-                    <p>Substituição gradual do ICMS e ISS pelo IBS, com aumento progressivo das alíquotas do IBS.</p>
-                    <div class="diagonal-stripe"></div>
-                </div>
-                <div class="timeline-icon-circle">
-                    <i class="fas fa-sync-alt"></i>
-                </div>
-            </div>
+            <div class="timeline-container left" id="2029-2032">
+                <div class="year-label">2029&nbsp;/&nbsp;2032</div>
+                <div class="card-timeline group" data-content="conteudo-2029-2032">
+                    <h3 class="text-xl font-bold mb-2">Substituição Gradual</h3>
+                    <p>Substituição gradual do ICMS e ISS pelo IBS, com aumento progressivo das alíquotas do IBS.</p>
+                </div>
+                <div class="timeline-icon-circle">
+                    <i class="fas fa-sync-alt"></i>
+                </div>
+            </div>
 
-            <div class="timeline-container right" id="2033">
-                <div class="year-label">2033</div>
-                <div class="card-timeline group"
-                    data-title="Implementação Total (2033)"
-                    data-content="Em 2033, o processo de reforma tributária foi concluído. O IBS foi totalmente implementado, substituindo o ICMS e o ISS por completo. Este ano marcou a consolidação do novo sistema, com um Imposto sobre Valor Adicionado (IVA) unificado e transparente em todo o país.">
-                    <h3 class="text-xl font-bold mb-2">Implementação Total</h3>
-                    <p>Implementação total do IBS, substituindo o ICMS e o ISS.</p>
-                    <div class="diagonal-stripe"></div>
-                </div>
-                <div class="timeline-icon-circle">
-                    <i class="fas fa-flag-checkered"></i>
-                </div>
-            </div>
-        </div>
-    </div>
+            <div class="timeline-container right" id="2033">
+                <div class="year-label">2033</div>
+                <div class="card-timeline group" data-content="conteudo-2033">
+                    <h3 class="text-xl font-bold mb-2">Implementação Total</h3>
+                    <p>Implementação total do IBS, substituindo o ICMS e o ISS.</p>
+                </div>
+                <div class="timeline-icon-circle">
+                    <i class="fas fa-flag-checkered"></i>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div id="modal-overlay" class="modal-overlay">
-        <div id="modal" class="modal">
-            <button id="modal-close-btn" class="modal-close-btn">&times;</button>
-            <h2 id="modal-title"></h2>
-            <p id="modal-content"></p>
-        </div>
-    </div>
+        <div id="conteudos-ocultos" hidden>
+        <div id="conteudo-2023">
+            <h3 class="text-xl font-bold mb-2">Emenda Constitucional 132/2023</h3>
+            <p>A Emenda Constitucional nº 132 de 2023 foi um marco crucial para a reforma tributária brasileira. Ela altera o Sistema Tributário Nacional, com foco na reforma da tributação sobre o consumo e ajustes na tributação sobre o patrimônio. Unifica as propostas das PECs 45 e 110/2019 e do Projeto de Lei nº 3887/2020, introduzindo três novos tributos: CBS, IBS e o Imposto Seletivo.</p>
+        </div>
+        <div id="conteudo-2024">
+            <h3 class="text-xl font-bold mb-2">Aprovação do PLP 68/2024</h3>
+            <p>Em 2024, foi aprovado o Projeto de Lei Complementar (PLP) 68/2024. Este foi o marco inicial para a nova legislação tributária, definindo as diretrizes e os princípios da reforma, como a unificação de impostos e a criação do IVA Dual.
+            <p>O texto definiu:</p>
+            <ul class="list-disc list-inside mt-2">
+                <li>Princípios do IVA Dual (CBS e IBS).</li>
+                <li>Definição de bens e serviços.</li>
+                <li>Regras para o Imposto Seletivo.</li>
+            </ul>
+            </p>
+        </div>
+        <div id="conteudo-2025">
+            <h3 class="text-xl font-bold mb-2">Lei Complementar (2025)</h3>
+            <p>A Lei Complementar nº 214/2025 foi publicada, regulamentando em detalhes a Contribuição Social sobre Bens e Serviços (CBS) e o Imposto sobre Bens e Serviços (IBS). Essa lei estabeleceu as regras, alíquotas e exceções necessárias para a implementação dos novos impostos.</p>
+            <img src="ilustracao-lei.jpg" alt="Ilustração de um documento legal com um selo de aprovação" class="w-full h-auto my-4 rounded-lg shadow-md" loading="lazy">
+        </div>
+        <div id="conteudo-2026">
+            <h3 class="text-xl font-bold mb-2">Ano de Teste (2026)</h3>
+            <p>O ano de 2026 foi dedicado ao teste dos novos impostos. A CBS foi implementada com uma alíquota de 0,9% e o IBS com 0,1%. Este período permitiu que empresas e órgãos governamentais se adaptassem aos novos sistemas de cálculo e arrecadação, ajustando processos e tecnologias.</p>
+            <p class="mt-4">Saiba mais sobre a fase de transição:</p>
+            <ul class="list-disc list-inside mt-2">
+                <li><a href="#" target="_blank" rel="noopener noreferrer" class="underline text-blue-600 dark:text-blue-400">Guia de Implementação</a></li>
+                <li><a href="#" target="_blank" rel="noopener noreferrer" class="underline text-blue-600 dark:text-blue-400">Relatório da Receita Federal</a></li>
+            </ul>
+        </div>
+        <div id="conteudo-2027">
+            <h3 class="text-xl font-bold mb-2">Início da CBS (2027)</h3>
+            <p>A Contribuição Social sobre Bens e Serviços (CBS) entrou em vigor, substituindo o PIS e a COFINS. As alíquotas do IPI (Imposto sobre Produtos Industrializados) foram reduzidas a 0, simplificando significativamente o sistema de tributação federal.</p>
+        </div>
+        <div id="conteudo-2029-2032">
+            <h3 class="text-xl font-bold mb-2">Substituição Gradual (2029-2032)</h3>
+            <p>Este período marca a substituição gradual do ICMS e ISS pelo IBS. As alíquotas do IBS serão progressivamente aumentadas, enquanto as do ICMS e ISS serão reduzidas até a sua completa extinção. O objetivo é evitar choques econômicos e permitir uma transição suave para empresas e estados.</p>
+        </div>
+        <div id="conteudo-2033">
+            <h3 class="text-xl font-bold mb-2">Implementação Total (2033)</h3>
+            <p>Em 2033, o processo de reforma tributária foi concluído. O IBS foi totalmente implementado, substituindo o ICMS e o ISS por completo. Este ano marcou a consolidação do novo sistema, com um Imposto sobre Valor Adicionado (IVA) unificado e transparente em todo o país.</p>
+        </div>
+    </div>
+        <div id="modal-overlay" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <div id="modal" class="modal">
+            <button id="modal-close-btn" class="modal-close-btn">&times;</button>
+            <div id="modal-content-container"></div>
+        </div>
+    </div>
 
-    <footer class="page-footer">
-        <div class="social-icons">
-            <a href="#" target="_blank" class="social-icon-square">
-                <i class="fab fa-linkedin-in"></i>
-            </a>
-            <a href="#" target="_blank" class="social-icon-square">
-                <i class="fab fa-instagram"></i>
-            </a>
-            <a href="#" target="_blank" class="social-icon-square">
-                <i class="fab fa-facebook-f"></i>
-            </a>
-            <a href="https://github.com/19lemabe94/reforma-linhadotempo" target="_blank" class="social-icon-square">
-                <i class="fab fa-github"></i>
-            </a>
-        </div>
-    </footer>
+    <footer class="page-footer">
+        <div class="social-icons">
+            <a href="#" target="_blank" class="social-icon-square">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+            <a href="#" target="_blank" class="social-icon-square">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="#" target="_blank" class="social-icon-square">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://github.com/19lemabe94/reforma-linhadotempo" target="_blank" class="social-icon-square">
+                <i class="fab fa-github"></i>
+            </a>
+        </div>
+    </footer>
 
-    <script>
-        const sr = ScrollReveal({
-        distance: '50px',
-        duration: 1000,
-        easing: 'cubic-bezier(0.5, 0, 0, 1)',
-        reset: true
-        });
-        sr.reveal('.timeline-container.left', { origin: 'left' });
-        sr.reveal('.timeline-container.right', { origin: 'right' });
-        sr.reveal('.year-label', { origin: 'bottom' });
+    <script>
+        const sr = ScrollReveal({
+        distance: '50px',
+        duration: 1000,
+        easing: 'cubic-bezier(0.5, 0, 0, 1)',
+        reset: true
+        });
+        sr.reveal('.timeline-container.left', { origin: 'left' });
+        sr.reveal('.timeline-container.right', { origin: 'right' });
+        sr.reveal('.year-label', { origin: 'bottom' });
 
-        // Referências aos elementos do DOM
-        const cardElements = document.querySelectorAll('.card-timeline');
-        const modalOverlay = document.getElementById('modal-overlay');
-        const modalTitle = document.getElementById('modal-title');
-        const modalContent = document.getElementById('modal-content');
-        const closeBtn = document.getElementById('modal-close-btn');
-        const timelineVertical = document.querySelector('.timeline-vertical');
+        // Referências aos elementos do DOM
+        const cardElements = document.querySelectorAll('.card-timeline');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalContentContainer = document.getElementById('modal-content-container');
+        const closeBtn = document.getElementById('modal-close-btn');
+        const timelineVertical = document.querySelector('.timeline-vertical');
 
-        // Array para armazenar as referências dos cards de detalhe abertos
-        const openDetailCards = new Map();
+        // Array para armazenar as referências dos cards de detalhe abertos
+        const openDetailCards = new Map();
 
-        // Função para fechar um card de detalhe específico com animação
-        function closeDetailCard(card) {
-            const detailCard = openDetailCards.get(card);
-            if (detailCard) {
-                detailCard.classList.remove('active');
-                setTimeout(() => detailCard.remove(), 500);
-                openDetailCards.delete(card);
-            }
-        }
+        // Função para fechar um card de detalhe específico com animação
+        function closeDetailCard(card) {
+            const detailCard = openDetailCards.get(card);
+            if (detailCard) {
+                detailCard.classList.remove('active');
+                setTimeout(() => detailCard.remove(), 500);
+                openDetailCards.delete(card);
+            }
+        }
 
-        // Lógica para cada card da linha do tempo
-        cardElements.forEach(card => {
-            card.addEventListener('click', () => {
-                const title = card.getAttribute('data-title');
-                const content = card.getAttribute('data-content');
-                
-                // Verifica o tamanho da tela para decidir entre modal ou card de detalhe
-                if (window.innerWidth > 768) {
-                    const parentContainer = card.closest('.timeline-container');
-                    const isRight = parentContainer.classList.contains('right');
+        // Lógica para cada card da linha do tempo
+        cardElements.forEach(card => {
+            card.addEventListener('click', () => {
+                const contentId = card.getAttribute('data-content');
+                const contentElement = document.getElementById(contentId);
+                if (!contentElement) return;
 
-                    // Se o card de detalhe já está aberto para este card, feche-o
-                    if (openDetailCards.has(card)) {
-                        closeDetailCard(card);
-                        return;
-                    }
+                const contentHtml = contentElement.innerHTML;
+                
+                // Verifica o tamanho da tela para decidir entre modal ou card de detalhe
+                if (window.innerWidth > 768) {
+                    const parentContainer = card.closest('.timeline-container');
+                    const isRight = parentContainer.classList.contains('right');
 
-                    // Cria o novo card de detalhe
-                    const detailCard = document.createElement('div');
-                    detailCard.classList.add('card-detail');
-                    detailCard.classList.add(isRight ? 'detail-right' : 'detail-left');
-                    detailCard.innerHTML = `
-                        <h3 class="font-bold">${title}</h3>
-                        <p class="text-white">${content}</p>
-                    `;
-                    
-                    // Adiciona o card de detalhe ao container principal da linha do tempo
-                    timelineVertical.appendChild(detailCard);
-                    openDetailCards.set(card, detailCard);
+                    // Se o card de detalhe já está aberto para este card, feche-o
+                    if (openDetailCards.has(card)) {
+                        closeDetailCard(card);
+                        return;
+                    }
 
-                    // Posiciona o card verticalmente em relação ao card pai
-                    const cardRect = card.getBoundingClientRect();
-                    const timelineRect = timelineVertical.getBoundingClientRect();
-                    const relativeTop = cardRect.top - timelineRect.top + (cardRect.height / 2);
-                    detailCard.style.top = `${relativeTop}px`;
+                    // Fecha qualquer outro card de detalhe que possa estar aberto
+                    openDetailCards.forEach((value, key) => {
+                        if (key !== card) {
+                            closeDetailCard(key);
+                        }
+                    });
 
-                    // Ativa a animação após um pequeno atraso
-                    setTimeout(() => {
-                        detailCard.classList.add('active');
-                    }, 10);
+                    // Cria o novo card de detalhe
+                    const detailCard = document.createElement('div');
+                    detailCard.classList.add('card-detail');
+                    detailCard.classList.add(isRight ? 'detail-right' : 'detail-left');
+                    detailCard.innerHTML = contentHtml;
+                    
+                    // Adiciona o card de detalhe ao container principal da linha do tempo
+                    timelineVertical.appendChild(detailCard);
+                    openDetailCards.set(card, detailCard);
 
-                } else {
-                    // Lógica do modal para telas pequenas
-                    modalTitle.textContent = title;
-                    modalContent.textContent = content;
-                    modalOverlay.classList.add('active');
-                }
-            });
-        });
+                    // Posiciona o card verticalmente em relação ao card pai
+                    const cardRect = card.getBoundingClientRect();
+                    const timelineRect = timelineVertical.getBoundingClientRect();
+                    const relativeTop = cardRect.top - timelineRect.top + (cardRect.height / 2);
+                    detailCard.style.top = `${relativeTop}px`;
 
-        // Event listener global para fechar cards de detalhe
-        document.addEventListener('click', (e) => {
-            // Apenas para telas maiores que 768px
-            if (window.innerWidth <= 768) return;
+                    // Ativa a animação após um pequeno atraso
+                    setTimeout(() => {
+                        detailCard.classList.add('active');
+                    }, 10);
 
-            // Se o clique foi fora de qualquer card da timeline ou card de detalhe
-            if (!e.target.closest('.card-timeline') && !e.target.closest('.card-detail')) {
-                // Itera sobre todos os cards de detalhe abertos e os fecha
-                for (const [card, detailCard] of openDetailCards) {
-                    closeDetailCard(card);
-                }
-            }
-        });
+                } else {
+                    // Lógica do modal para telas pequenas
+                    modalContentContainer.innerHTML = contentHtml;
+                    modalOverlay.classList.add('active');
+                }
+            });
+        });
 
-        // Event listener para fechar o modal ou todos os cards de detalhe com a tecla ESC
-        document.addEventListener('keydown', e => {
-            if (e.key === 'Escape') {
-                modalOverlay.classList.remove('active');
-                
-                if (openDetailCards.size > 0) {
-                    for (const [card, detailCard] of openDetailCards) {
-                        closeDetailCard(card);
-                    }
-                }
-            }
-        });
+        // Event listener global para fechar cards de detalhe
+        document.addEventListener('click', (e) => {
+            // Apenas para telas maiores que 768px
+            if (window.innerWidth <= 768) return;
 
-        // Lógica do modal para telas pequenas 
-        closeBtn.addEventListener('click', () => {
-            modalOverlay.classList.remove('active');
-        });
+            // Se o clique foi fora de qualquer card da timeline ou card de detalhe
+            if (!e.target.closest('.card-timeline') && !e.target.closest('.card-detail')) {
+                // Itera sobre todos os cards de detalhe abertos e os fecha
+                for (const [card, detailCard] of openDetailCards) {
+                    closeDetailCard(card);
+                }
+            }
+        });
 
-        modalOverlay.addEventListener('click', (e) => {
-            if (e.target === modalOverlay) {
-                modalOverlay.classList.remove('active');
-            }
-        });
+        // Event listener para fechar o modal ou todos os cards de detalhe com a tecla ESC
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Escape') {
+                modalOverlay.classList.remove('active');
+                
+                if (openDetailCards.size > 0) {
+                    for (const [card, detailCard] of openDetailCards) {
+                        closeDetailCard(card);
+                    }
+                }
+            }
+        });
 
-        // Lógica de navegação suave 
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function(event) {
-                event.preventDefault();
+        // Lógica do modal para telas pequenas 
+        closeBtn.addEventListener('click', () => {
+            modalOverlay.classList.remove('active');
+        });
 
-                const targetId = this.getAttribute('href').substring(1);
-                const targetElem = document.getElementById(targetId);
-                if (!targetElem) return;
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.classList.remove('active');
+            }
+        });
 
-                const elementRect = targetElem.getBoundingClientRect();
-                const absoluteElementTop = elementRect.top + window.pageYOffset;
-                const middleOfScreen = window.innerHeight / 2;
-                const scrollTo = absoluteElementTop - middleOfScreen + (elementRect.height / 2);
+        // Lógica de navegação suave 
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
 
-                window.scrollTo({
-                    top: scrollTo,
-                    behavior: 'smooth'
-                });
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElem = document.getElementById(targetId);
+                if (!targetElem) return;
 
-                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
+                const elementRect = targetElem.getBoundingClientRect();
+                const absoluteElementTop = elementRect.top + window.pageYOffset;
+                const middleOfScreen = window.innerHeight / 2;
+                const scrollTo = absoluteElementTop - middleOfScreen + (elementRect.height / 2);
 
-        // ==== MODO ESCURO ====
-        const toggleDarkModeBtn = document.getElementById('toggle-dark-mode');
-        const body = document.body;
-        const logoNav = document.querySelector('.logo-nav'); // Adicione esta linha
+                window.scrollTo({
+                    top: scrollTo,
+                    behavior: 'smooth'
+                });
 
-        // Carregar preferência salva
-        if (localStorage.getItem('darkMode') === 'true') {
-            body.classList.add('dark-mode');
-            logoNav.src = 'logo-white.png'; // Adicione esta linha
-            toggleDarkModeBtn.innerHTML = '<i class="fa-solid fa-sun"></i> ';
-        }
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
 
-        // Alternar tema
-        toggleDarkModeBtn.addEventListener('click', () => {
-            body.classList.toggle('dark-mode');
-            const darkModeAtivo = body.classList.contains('dark-mode');
-            localStorage.setItem('darkMode', darkModeAtivo);
+        // ==== MODO ESCURO ====
+        const toggleDarkModeBtn = document.getElementById('toggle-dark-mode');
+        const body = document.body;
+        const logoNav = document.querySelector('.logo-nav'); // Adicione esta linha
 
-            // Adicione a lógica para trocar o logo aqui
-            if (darkModeAtivo) {
-                logoNav.src = 'logo-white.png'; // Troca para a logo branca
-            } else {
-                logoNav.src = 'logo.jpg'; // Volta para a logo original
-            }
+        // Carregar preferência salva
+        if (localStorage.getItem('darkMode') === 'true') {
+            body.classList.add('dark-mode');
+            logoNav.src = 'logo-white.png'; // Adicione esta linha
+            toggleDarkModeBtn.innerHTML = '<i class="fa-solid fa-sun"></i> ';
+        }
 
-            toggleDarkModeBtn.innerHTML = darkModeAtivo 
-                ? '<i class="fa-solid fa-sun"></i> '
-                : '<i class="fa-solid fa-moon"></i> ';
-        });
+        // Alternar tema
+        toggleDarkModeBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const darkModeAtivo = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', darkModeAtivo);
 
-            // Referências para o novo botão e o menu
-    const menuToggle = document.getElementById('menu-toggle');
-    const mainMenu = document.getElementById('main-menu');
+            // Adicione a lógica para trocar o logo aqui
+            if (darkModeAtivo) {
+                logoNav.src = 'logo-white.png'; // Troca para a logo branca
+            } else {
+                logoNav.src = 'logo.jpg'; // Volta para a logo original
+            }
 
-    // Adiciona um evento de clique ao botão do hambúrguer
-    menuToggle.addEventListener('click', () => {
-        mainMenu.classList.toggle('active');
-    });
+            toggleDarkModeBtn.innerHTML = darkModeAtivo 
+                ? '<i class="fa-solid fa-sun"></i> '
+                : '<i class="fa-solid fa-moon"></i> ';
+        });
 
-    // Fecha o menu ao clicar em um link (opcional, mas melhora a usabilidade)
-    mainMenu.querySelectorAll('.nav-link').forEach(link => {
-        link.addEventListener('click', () => {
-            mainMenu.classList.remove('active');
-        });
-    });
+            // Referências para o novo botão e o menu
+    const menuToggle = document.getElementById('menu-toggle');
+    const mainMenu = document.getElementById('main-menu');
 
-    </script>
+    // Adiciona um evento de clique ao botão do hambúrguer
+    menuToggle.addEventListener('click', () => {
+        mainMenu.classList.toggle('active');
+    });
+
+    // Fecha o menu ao clicar em um link (opcional, mas melhora a usabilidade)
+    mainMenu.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', () => {
+            mainMenu.classList.remove('active');
+        });
+    });
+
+    </script>
 </body>
 </html>
