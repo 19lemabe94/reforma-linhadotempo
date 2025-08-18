@@ -97,6 +97,7 @@
             transition: color 0.4s ease-in-out, transform 0.3s ease-in-out;
         }
 
+
         .social-icon-square {
             display: flex;
             align-items: center;
@@ -107,6 +108,16 @@
             border: 2px solid #202020;
             transition: all 0.3s ease-in-out;
             border-radius: 50%;
+        }
+        .social-icon-square1 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 10px;
+            height: 10px;
+            font-size: 1.5rem;
+            transition: all 0.3s ease-in-out;
+            margin-right: 200px;
         }
 
         .social-icon-square:hover {
