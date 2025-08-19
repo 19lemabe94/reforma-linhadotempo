@@ -1,4 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@700&family=Roboto+Slab:ital,wght@1,300&display=swap');
+        .menu-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px; /* Espaço entre o menu hambúrguer e o botão de configurações */
+        }
+
 
         body {
             font-family: 'Inter', sans-serif;
@@ -22,7 +28,8 @@
         }
         .logo-nav {
             height: 80px;
-            border: 2px solid;
+            margin: 0;
+            padding: 5px;
         }
 
         .main-nav ul {
@@ -422,8 +429,10 @@
                 text-align: left;
             }
             .main-nav {
-                flex-direction: column;
-                padding: 10px;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px;
             }
             .main-nav ul {
                 flex-wrap: wrap;
@@ -539,7 +548,7 @@
             color:#a18c65;
         }
         body.dark-mode .logo-nav {
-            margin-left: 10px;
+            margin-left: 0px;
             height: 60px;
         }
 
@@ -578,9 +587,7 @@
                 padding: 10px 20px;
             }
 
-            .main-nav .logo-nav {
-                margin-right: auto; /* Empurra o logo para a esquerda */
-            }
+
 
             .menu-toggle {
                 display: block; /* Exibe o botão do hambúrguer em telas pequenas */
@@ -642,9 +649,5 @@
             
         }
         #toggle-dark-mode {
-            margin-left: auto;
             text-decoration: none;
-        }
-        .menu-toggle {
-            margin-left: 50px;
         }
