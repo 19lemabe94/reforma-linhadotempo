@@ -3,6 +3,7 @@
             display: flex;
             align-items: center;
             gap: 10px; /* Espaço entre o menu hambúrguer e o botão de configurações */
+            margin-left: auto;
         }
 
 
@@ -67,7 +68,6 @@
 
         .header-content {
             text-align: center;
-            margin-top: 20px;
         }
 
         .header-title {
